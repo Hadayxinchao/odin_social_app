@@ -19,13 +19,13 @@
 <% if @friendship1 && @friendship1.status == 1 %>
   <% if @role == 'requester' %>
     <%= button_tag 'Pending approval', disabled: true %>
-    <%= link_to 'Cancel request', "/friends/#{@friendship1.id}", data: { turbo_method: :delete } %>
+    <%= link_to 'Cancel request', @friendship1, data: { turbo_method: :delete } %>
   <% else %>
-    <%= link_to 'Accept request', "/friends/#{@friendship1.id}", data: { turbo_method: :patch } %>
-    <%= link_to 'Reject request', "/friends/#{@friendship1.id}", data: { turbo_method: :delete } %>
+    <%= link_to 'Accept request', @friendship1, data: { turbo_method: :patch } %>
+    <%= link_to 'Reject request', @friendship1, data: { turbo_method: :delete } %>
   <% end %>
 <% end %>
 
 <% if @friendship1 && @friendship1.status == 2 %>
-  <%= link_to 'Delete friendship', "/friends/#{@friendship1.id}", data: { turbo_method: :delete } %>
+  <%= link_to 'Delete friendship', @friendship1, data: { turbo_method: :delete } %>
 <% end %>
