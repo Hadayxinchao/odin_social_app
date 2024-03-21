@@ -1,6 +1,14 @@
 class LikesController < ApplicationController
   def create
-    Like.create(like_params)
+    like = Like.create(like_params)
+
+    # Creates a notification for the user who created the post
+    unless like.user_id == like.likeable.user_id
+      Notification.create(notificationable_id: like.id,
+                          notificationable_type: 'Like',
+                          user_id: like.likeable.author.id,
+                          content: "#{like.user.email} liked your post")
+    end
     redirect_back_or_to root_path
   end
 
