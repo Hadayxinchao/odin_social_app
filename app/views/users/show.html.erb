@@ -9,7 +9,6 @@
 <%# Show correct texts depending on the role of the current user on the friendship request %>
 <% unless @user == current_user || current_user.friends.exists?(@user.id) %>
   <%= form_with url: '/friends', method: 'post' do |form| %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
     <%= form.hidden_field :friend_id, value: @user.id %>
     <%= form.submit 'Add friend' %>
   <% end %>

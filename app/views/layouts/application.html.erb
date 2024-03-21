@@ -21,9 +21,13 @@
       <div class='notification'>
         <% current_user.notifications.order(created_at: :desc).first(5).each do |n| %>
           <% if n.notificationable_type == 'Friendship' %>
-            <div><%= link_to n.text, n.notificationable.friend %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
+            <% if n.notificationable.status == 1 %>
+              <div><%= link_to n.content, n.notificationable.user %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
+            <% else %>
+              <div><%= link_to n.content, n.notificationable.friend %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
+            <% end %>
           <% else %>
-            <div><%= link_to n.text, n.notificationable %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
+            <div><%= link_to n.content, n.notificationable %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
           <% end %>
         <% end %>
       </div>
