@@ -27,4 +27,6 @@
 
 <% if @friendship1 && @friendship1.status == 2 %>
   <%= link_to 'Delete friendship', @friendship1, data: { turbo_method: :delete } %>
+  <h2>Posts</h2>
+  <%= render @posts %>
 <% end %>

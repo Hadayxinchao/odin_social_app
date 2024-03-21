@@ -13,6 +13,8 @@ class UsersController < ApplicationController
                 'requested'
               end
     end
+
+    @posts = Post.where(user_id: @user.id).order(created_at: :desc).limit(10)
   end
 
   def index
