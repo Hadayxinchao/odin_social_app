@@ -13,5 +13,6 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   has_many :notifications, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, inverse_of: 'author', dependent: :destroy
   validates :email, presence: true
 end
