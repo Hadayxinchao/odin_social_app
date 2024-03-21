@@ -1,1 +1,17 @@
-<h1>Profile</h1>
+<% if @user == current_user %>
+  <h1>Profile</h1>
+<% else %>
+  <h1>User</h1>
+<% end %>
+
+<%= render @user %>
+<% unless @user == current_user || current_user.friends.exists?(@user.id) %>
+  <%= form_with url: '/friends', method: 'post' do |form| %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :friend_id, value: @user.id %>
+    <%= form.submit 'Add friend' %>
+  <% end %>
+<% end %>
+<% if Friendship.exists?(user_id: current_user.id, friend_id: @user.id, status: 1) %>
+  <%= button_tag 'Pending approval', disabled: true %>
+<% end %>
