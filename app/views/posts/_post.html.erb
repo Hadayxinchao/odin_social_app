@@ -1,4 +1,7 @@
 <div class="post">
   <div><%= post.author.email %></div>
   <div><%= post.content %></div>
+  <% if post.author == current_user %>
+    <%= link_to 'Delete post', post_path(post.id), data: { turbo_method: 'delete' } %>
+  <% end %>
 </div>

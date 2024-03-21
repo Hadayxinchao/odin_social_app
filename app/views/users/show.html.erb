@@ -27,6 +27,11 @@
 
 <% if @friendship1 && @friendship1.status == 2 %>
   <%= link_to 'Delete friendship', @friendship1, data: { turbo_method: :delete } %>
-  <h2>Posts</h2>
+<% end %>
+
+<h2>Posts</h2>
+<% if @friendship1 && @friendship1.status == 2 || @user == current_user %>
   <%= render @posts %>
+<% else %>
+  <div>Add <%= @user.email %> as a friend to see his/her posts.</div>
 <% end %>
