@@ -1,0 +1,8 @@
+<h1>New post</h1>
+
+<%= form_with model: @post do |f| %>
+  <%= f.label :content, 'Post Content:' %>
+  <%= f.text_field :content %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit 'Post' %>
+<% end %>

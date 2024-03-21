@@ -1,2 +1,7 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h1>Posts</h1>
+
+<ul>
+  <li><%= link_to 'New post', new_post_path %></li>
+</ul>
+
+<%= render @posts %>
