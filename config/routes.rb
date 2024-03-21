@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :friends, except: %i[show new edit], controller: 'friendships', as: 'friendships'
   resources :notifications, only: %i[index create destroy]
+  resources :likes, only: %i[create destroy]
   devise_for :users, path: 'accounts'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
