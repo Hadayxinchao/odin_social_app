@@ -1,17 +1,19 @@
 <div class="post">
   <div><%= post.author.email %></div>
   <div><%= post.content %></div>
-  <% if Like.where(user_id: current_user.id, likeable_type: 'Post', likeable_id: post.id).exists? %>
-    <%= link_to 'Unlike', like_path(post.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
-  <% else %>
-    <%= form_with model: Like.new(), url:likes_path do |f| %>
-      <%= f.hidden_field :likeable_type, value: 'Post' %>
-      <%= f.hidden_field :likeable_id, value: post.id %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      <%= f.submit 'Like' %>
+  <div>Likes: <%= post.likes.size %>
+  <div>
+    <% if Like.where(user_id: current_user.id, likeable_type: 'Post', likeable_id: post.id).exists? %>
+      <%= link_to 'Unlike', like_path(post.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
+    <% else %>
+      <%= form_with model: Like.new(), url:likes_path do |f| %>
+        <%= f.hidden_field :likeable_type, value: 'Post' %>
+        <%= f.hidden_field :likeable_id, value: post.id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.submit 'Like' %>
+      <% end %>
     <% end %>
-  <% end %>
-
+  </div>
   <% if post.author == current_user %>
     <%= link_to 'Delete post', post_path(post.id), data: { turbo_method: 'delete' } %>
   <% end %>
