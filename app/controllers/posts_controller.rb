@@ -25,8 +25,13 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
+    path = post_url(@post)
     @post.destroy
-    redirect_back_or_to root_path
+    if request.referer == path
+      redirect_to root_path
+    else
+      redirect_back_or_to root_path
+    end
   end
 
   private

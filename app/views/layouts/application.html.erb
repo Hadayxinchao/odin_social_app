@@ -27,6 +27,8 @@
             <% else %>
               <div><%= link_to n.content, n.notificationable.friend %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
             <% end %>
+          <% elsif n.notificationable_type == 'Like' %>
+            <div><%= link_to n.content, n.notificationable.likeable %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
           <% else %>
             <div><%= link_to n.content, n.notificationable %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
           <% end %>
