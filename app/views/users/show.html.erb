@@ -6,16 +6,22 @@
 
 <%= render @user %>
 
-<%# Show button to add friend unless own profile of Friendship request (object) already exists %>
+<%# Show button to add friend unless own profile or Friendship request (object) already exists %>
 <% unless @user == current_user || current_user.friends.exists?(@user.id) %>
   <%= form_with url: '/friends', method: 'post' do |form| %>
     <%= form.hidden_field :user_id, value: current_user.id %>
     <%= form.hidden_field :friend_id, value: @user.id %>
     <%= form.submit 'Add friend' %>
   <% end %>
-<% end %>
-<%# %>
-<% if @friendship && @friendship.status == 1 %>
-  <%= button_tag 'Pending approval', disabled: true %>
-  <%= link_to 'Cancel request', "/friends/#{@friendship.id}", data: { turbo_method: :delete } %>
+<% end %> 
+
+<%#  %>
+<% if @friendship1 && @friendship1.status == 1 %>
+  <% if @role == 'requester' %>
+    <%= button_tag 'Pending approval', disabled: true %>
+    <%= link_to 'Cancel request', "/friends/#{@friendship1.id}", data: { turbo_method: :delete } %>
+  <% else %>
+    <%= link_to 'Accept request', "/friends/#{@friendship1.id}", data: { turbo_method: :patch } %>
+    <%= link_to 'Reject request', "/friends/#{@friendship1.id}", data: { turbo_method: :delete } %>
+  <% end %>
 <% end %>
