@@ -3,7 +3,7 @@
 
 <h2><%= @name %> friends</h2>
 <% if current_user == @user %>
-  <%= render @friends%>
+  <%= render @friends %>
 <% else %>
   <h3>Friends in common</h3>
   <%= render @friends_in_common %>
