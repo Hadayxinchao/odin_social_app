@@ -17,7 +17,9 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, inverse_of: 'author', dependent: :destroy
-  has_one_attached :avatar
+  has_one_attached :avatar do |attachable|
+    attachable.variant :thumb, resize_to_fit: [100, 100]
+  end
   validates :email, presence: true
 
   def self.from_omniauth(access_token)
