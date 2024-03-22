@@ -1,17 +1,18 @@
 <h1><%= @name %> profile</h1>
 <%= render @user %>
 
-<h2><%= @name %> friends</h2>
+<%= render 'friendships/friends_section', name: @name,
+                                          user: @user,
+                                          friends: @friends,
+                                          friends_in_common: @friends_in_common,
+                                          other_friends: @other_friends %>
+
 <% if current_user == @user %>
-  <%= render @friends %>
-<% else %>
-  <h3>Friends in common</h3>
-  <%= render @friends_in_common %>
-  <h3>Other friends</h3>
-  <%= render @other_friends %>
+  <h2>New post</h2>
+  <%= render 'posts/post_form', post: @post %>
 <% end %>
 
-<h2><%= @name %> recent Posts</h2>
+<h2><%= @name %> recent posts</h2>
 <% if current_user == @user || current_user.friendship_confirmed?(@user) %>
   <%= render @posts %>
 <% else %>

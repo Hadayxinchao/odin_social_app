@@ -1,8 +1,26 @@
 class FriendshipsController < ApplicationController
   def index
-    user = current_user
-    friendships = Friendship.where(user_id: user.id, status: 2).pluck(:friend_id)
-    @friends = User.where(id: friendships).order(:first_name)
+    @user = User.find(params[:user_id])
+    @name = if @user == current_user
+              'My'
+            else
+              if @user.email.downcase[-1] != 's'
+                "#{@user.first_name}'s"
+              else
+                "#{@user.first_name}'"
+              end
+            end
+    friends_ids = Friendship.where(user_id: @user.id, status: 2).pluck(:friend_id)
+    friends_ids.delete(current_user.id)
+    if current_user == @user
+      @friends = User.where(id: friends_ids).order(:first_name)
+    else
+      current_user_friends_ids = Friendship.where(user_id: current_user.id, status: 2).pluck(:friend_id)
+      common_friends_ids = friends_ids.intersection(current_user_friends_ids)
+      other_friends_ids = friends_ids.difference(common_friends_ids)
+      @friends_in_common = User.where(id: common_friends_ids).order(:first_name)
+      @other_friends = User.where(id: other_friends_ids).order(:first_name)
+    end
   end
 
   # When a friendship request is created:

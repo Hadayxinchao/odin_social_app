@@ -1,3 +1,7 @@
 <h1>Friends</h1>
 
-<%= render @friends %>
+<%= render 'friends_section', name: @name,
+                             user: @user,
+                             friends: @friends,
+                             friends_in_common: @friends_in_common,
+                             other_friends: @other_friends %>
