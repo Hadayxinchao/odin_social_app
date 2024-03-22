@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   skip_before_action :require_name
+  after_action :set_avatar, only: [:create]
 
   # GET /resource/sign_up
   # def new
@@ -88,6 +89,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def complete_params
     params.require(:user).permit(:first_name, :last_name)
+  end
+
+  def set_avatar
+    user = current_user
+    avatar_url = URI.parse("https://gravatar.com/avatar/#{Digest::SHA256.hexdigest(user.email)}")
+    filename = File.basename(avatar_url.path)
+    avatar_file = avatar_url.open
+    user.avatar.attach(io: avatar_file, filename: filename)
   end
 
   # The path used after sign up.
