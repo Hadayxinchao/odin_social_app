@@ -2,7 +2,7 @@ class FriendshipsController < ApplicationController
   def index
     user = current_user
     friendships = Friendship.where(user_id: user.id, status: 2).pluck(:friend_id)
-    @friends = User.where(id: friendships)
+    @friends = User.where(id: friendships).order(:first_name)
   end
 
   # When a friendship request is created:
