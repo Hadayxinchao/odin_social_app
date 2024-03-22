@@ -1,4 +1,7 @@
 <div class="comment">
   <div><%= comment.author.email %></div>
   <div><%= comment.content %></div>
+  <% if current_user == comment.author || current_user == comment.post.author %>
+    <%= link_to 'Delete Comment', comment_path(comment), data: { turbo_method: :delete } %>
+  <% end %>
 </div>

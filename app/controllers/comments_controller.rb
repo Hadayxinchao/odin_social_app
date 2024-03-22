@@ -1,7 +1,13 @@
 class CommentsController < ApplicationController
   def create
-    @comment = Comment.new(comment_params)
-    if @comment.save
+    comment = Comment.new(comment_params)
+    if comment.save
+      unless current_user == comment.post.author  
+        Notification.create(notificationable_id: comment.id,
+                            notificationable_type: 'Comment',
+                            user_id: comment.post.author.id,
+                            text: "#{current_user.email} commented on your post")
+      end
       flash[:success] = 'Comment created'
     else
       flash[:error] = 'Invalid Comment'
@@ -10,6 +16,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    comment = Comment.find(params[:id])
+    comment.destroy
+    redirect_back_or_to root_path
   end
 
   private
