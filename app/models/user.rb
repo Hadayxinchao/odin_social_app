@@ -34,7 +34,7 @@ class User < ApplicationRecord
                 last_name: data['last_name'],
                 email: data['email'],
                 password: Devise.friendly_token[0,20],
-                photo: data['image'])
+                avatar: data['image'])
   end
 
   def create_friendship(friend)
