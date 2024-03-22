@@ -1,7 +1,5 @@
 <h1>Posts</h1>
 
-<ul>
-  <li><%= link_to 'New post', new_post_path %></li>
-</ul>
+<%= render 'post_form', post: @post %>
 
 <%= render @posts %>

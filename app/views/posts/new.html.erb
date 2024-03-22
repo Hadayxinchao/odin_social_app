@@ -1,8 +1,13 @@
 <h1>New post</h1>
-
-<%= form_with model: @post do |f| %>
-  <%= f.label :content, 'Post Content:' %>
-  <%= f.text_area :content %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.submit 'Post' %>
+<% if @post.errors.any? %>
+  <div id="error_explaination">
+    <h2><%= plularize(@post.errors.count, 'error') %> prohibited the post from being saved.</h2>
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>      
+  </div>
 <% end %>
+
+<%= render 'post_form', post: @post %>

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
     friends_ids = Friendship.where(user_id: current_user.id, status: 2).pluck(:friend_id)
+    @post = Post.new()
     @posts = Post.where(user_id: current_user.id)
                  .or(Post.where(user_id: friends_ids))
                  .order(created_at: :desc)
@@ -11,13 +12,13 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    @post = Post.new()
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_back_or_to posts_path
+      redirect_back_or_to root_path
     else
       render :new, status: :unprocessable_entity
     end

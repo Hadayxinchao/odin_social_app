@@ -21,6 +21,10 @@
   color: red;
  }
 
+ .field_with_errors {
+  border: 1px solid red;
+ }
+
  .success {
   color: green;
  }
