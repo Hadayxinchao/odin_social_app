@@ -107,6 +107,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user_path(resource)
   end
 
+  def set_avatar
+    user = current_user
+    avatar_url = URI.parse("https://gravatar.com/avatar/#{Digest::SHA256.hexdigest(user.email)}")
+    filename = File.basename(avatar_url.path)
+    avatar_file = avatar_url.open
+    user.avatar.attach(io: avatar_file, filename: filename)
+  end
+
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
   #   super(resource)

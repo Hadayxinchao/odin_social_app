@@ -20,6 +20,12 @@
   </div>
 
   <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar, data: { action: 'change->avatar#preview', 'avatar-target': 'input' } %>
+    <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autocomplete: "email" %>
   </div>
