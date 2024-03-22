@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  # You should configure your model like this:
-  # devise :omniauthable, omniauth_providers: [:twitter]
+  skip_before_action :require_name
 
-  # You should also create an action method in this controller like this:
-  # def twitter
-  # end
   def google_oauth2
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env['omniauth.auth'])
+
+    unless @user
+      @user = User.persist_user(request.env['omniauth.auth'])
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
+      sign_in @user
+      redirect_to accounts_complete_path
+      return
+    end
 
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
