@@ -8,6 +8,13 @@ class User < ApplicationRecord
     Friendship.where(friend_id: user.id).each(&:destroy)
   end
 
+  after_create do |user|
+    unless user.avatar
+      avatar_url = "https://gravatar.com/avatar/#{Digest::SHA256.hexdigest(user.email)}"
+      user.update(avatar: avatar_url)
+    end
+  end
+
   has_many :posts, inverse_of: 'author', dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
