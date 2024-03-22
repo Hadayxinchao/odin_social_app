@@ -6,7 +6,8 @@ class CommentsController < ApplicationController
         Notification.create(notificationable_id: comment.id,
                             notificationable_type: 'Comment',
                             user_id: comment.post.author.id,
-                            content: "#{current_user.email} commented on your post")
+                            content: "#{current_user.email} commented on your post",
+                            path: post_path(comment.post))
       end
       flash[:success] = 'Comment created'
     else
