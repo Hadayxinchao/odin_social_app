@@ -1,14 +1,19 @@
-<% if @user == current_user %>
-  <h1>Profile</h1>
-<% else %>
-  <h1>User</h1>
-<% end %>
-
+<h1><%= @name %> profile</h1>
 <%= render @user %>
 
-<h2>Posts</h2>
+<h2><%= @name %> friends</h2>
+<% if current_user == @user %>
+  <%= render @friends%>
+<% else %>
+  <h3>Friends in common</h3>
+  <%= render @friends_in_common %>
+  <h3>Other friends</h3>
+  <%= render @other_friends %>
+<% end %>
+
+<h2><%= @name %> recent Posts</h2>
 <% if current_user == @user || current_user.friendship_confirmed?(@user) %>
-  <%= render Post.where(user_id: @user.id).order(created_at: :desc).limit(10) %>
+  <%= render @posts %>
 <% else %>
   <div>Add <%= @user.email %> as a friend to see his/her posts.</div>
 <% end %>

@@ -18,7 +18,11 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_back_or_to root_path
+      if request.headers['Referer'].include?('users')
+        redirect_back_or_to root_path
+      else
+        redirect_to root_path
+      end
     else
       render :new, status: :unprocessable_entity
     end
