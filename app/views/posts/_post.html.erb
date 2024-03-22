@@ -17,6 +17,8 @@
   <% if post.author == current_user %>
     <%= link_to 'Delete post', post_path(post.id), data: { turbo_method: 'delete' } %>
   <% end %>
+  
+  <%= render post.comments %>
 
   <%= form_with model: Comment.new(), url: comments_path do |f| %>
     <%= f.text_area :content, placeholder: 'Comment here' %>

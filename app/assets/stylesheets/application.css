@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- .post {
+ .post, .comment {
   border: 1px solid black;
  }
 
