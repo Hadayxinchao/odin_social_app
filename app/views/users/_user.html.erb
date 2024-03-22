@@ -4,4 +4,27 @@
     <strong>Name: </strong><%= "#{user.first_name} #{user.last_name}" %> <br>
     <strong>Email: </strong><%= user.email %>
   </div>
+
+  <div>
+    <% if current_user.friendship(user) %>
+      <% if current_user.friendship_confirmed?(user) %>
+        <%= link_to 'Delete Friendship', current_user.friendship(user), data: { turbo_method: :delete } %>
+      <% else %>
+        <% if current_user.friendship(user).requester == current_user %>
+          <%= button_tag 'Pending Approval', disabled: true %>
+          <%= link_to 'Cancel request', current_user.friendship(user), data: { turbo_method: :delete } %>
+        <% else %>
+          <%= link_to 'Accept request', current_user.friendship(user), data: { turbo_method: :patch } %>
+          <%= link_to 'Reject request', current_user.friendship(user), data: { turbo_method: :delete } %>
+        <% end %>
+      <% end%>
+    <% else %>
+      <% unless user == current_user %>
+        <%= form_with url: '/friends', method: 'post' do |form| %>
+          <%= form.hidden_field :friend_id, value: user.id %>
+          <%= form.submit 'Add Friend' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
 </div>

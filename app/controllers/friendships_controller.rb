@@ -1,46 +1,50 @@
 class FriendshipsController < ApplicationController
   def index
-    @user = current_user
-    @friendships = Friendship.where(user_id: @user.id, status: 2).pluck(:friend_id)
-    @friends = User.where(id: @friendships)
+    user = current_user
+    friendships = Friendship.where(user_id: user.id, status: 2).pluck(:friend_id)
+    @friends = User.where(id: friendships)
   end
 
+  # When a friendship request is created:
+  # 1. create friendship, with status 1
+  # 2. create mirror friendship, with status 1
+  # 3. create an appropiate notification
+  # 4. redirect back to referer or to requested
+
   def create
-    user = current_user
     friend = User.find(params[:friend_id])
-    friendship = Friendship.create(user_id: user.id,
-                                   friend_id: friend.id,
-                                   status: 1)
-    Friendship.create(user_id: friend.id, friend_id: user.id, status: 1)
-    Notification.create(user_id: friend.id,
-                        notificationable_id: friendship.id,
-                        notificationable_type: 'Friendship',
-                        content: "#{user.email} has sent you a friend request")
-    redirect_to friend
+    friendship = current_user.create_friendship(friend)
+    friendship.create_mirror_friendship
+    friendship.create_notification
+    redirect_back_or_to friendship.requested
   end
+
+  # When a friendship request is accepted:
+  # 1. update friendship status to 2
+  # 2. update mirror friendship status to 2
+  # 3. create an appropiate notification
+  # 4. redirect back to referer or the requester
 
   def update
     friendship = Friendship.find(params[:id])
-    receiver = friendship.user
-    requester = friendship.friend
-    friendship2 = Friendship.find_by(user_id: requester.id,
-                                     friend_id: receiver.id)
     friendship.update(status: 2)
-    friendship2.update(status: 2)
-    Notification.create(user_id: requester.id,
-                        notificationable_id: friendship2.id,
-                        notificationable_type: 'Friendship',
-                        content: "#{receiver.email} has accepted your friend request")
-    redirect_to requester
+    friendship.mirror_friendship.update(status: 2)
+    friendship.create_notification
+    redirect_back_or_to friendship.requester
   end
 
+  # When a friendship is destroyed:
+  # 1. retrieve friendship
+  # 2. save other party of friendship to use on redirect path
+  # 3. destroy mirror friendship
+  # 4. destroy friendship
+  # 5. redirect back to referer or to other party
+
   def destroy
-    @friendship = Friendship.find(params[:id])
-    @friendship2 = Friendship.find_by(user_id: @friendship.friend_id,
-                                      friend_id: @friendship.user_id)
-    @friend = @friendship.friend
-    @friendship.destroy
-    @friendship2.destroy
-    redirect_to @friend
+    friendship = Friendship.find(params[:id])
+    ex_friend = friendship.other_party(current_user)
+    friendship.mirror_friendship.destroy
+    friendship.destroy
+    redirect_back_or_to ex_friend
   end
 end

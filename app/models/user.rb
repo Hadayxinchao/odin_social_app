@@ -15,4 +15,18 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, inverse_of: 'author', dependent: :destroy
   validates :email, presence: true
+
+  def create_friendship(friend)
+    Friendship.create(user_id: self.id, friend_id: friend.id, status: 1)
+  end
+
+  def friendship(user)
+    Friendship.find_by(user_id: self.id, friend_id: user.id)
+  end
+
+  def friendship_confirmed?(user)
+    return false unless self.friendship(user)
+
+    true if self.friendship(user).status == 2
+  end
 end
