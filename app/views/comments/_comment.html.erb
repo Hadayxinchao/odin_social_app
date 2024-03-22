@@ -1,6 +1,16 @@
 <div class="comment">
   <div><%= comment.author.email %></div>
   <div><%= comment.content %></div>
+  <% if Like.where(user_id: current_user.id, likeable_type: 'Comment', likeable_id: comment.id).exists? %>
+    <%= link_to 'Unlike', like_path(comment.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
+  <% else %>
+    <%= form_with model: Like.new(), url: likes_path do |f| %>
+      <%= f.hidden_field :likeable_type, value: 'Comment' %>
+      <%= f.hidden_field :likeable_id, value: comment.id %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.submit 'Like' %>
+    <% end %>
+  <% end %>
   <% if current_user == comment.author || current_user == comment.post.author %>
     <%= link_to 'Delete Comment', comment_path(comment), data: { turbo_method: :delete } %>
   <% end %>

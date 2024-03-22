@@ -27,8 +27,10 @@
             <% else %>
               <div><%= link_to n.content, n.notificationable.friend %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
             <% end %>
-          <% elsif n.notificationable_type == 'Like' %>
+          <% elsif n.notificationable_type == 'Like' && n.notificationable.likeable_type == 'Post' %>
             <div><%= link_to n.content, n.notificationable.likeable %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
+          <% elsif n.notificationable_type == 'Like' && n.notificationable.likeable_type == 'Comment' %>
+            <div><%= link_to n.content, n.notificationable.likeable.post %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
           <% elsif n.notificationable_type == 'Comment' %>
             <div><%= link_to n.content, n.notificationable.post %> - <%= link_to 'x', n, data: { turbo_method: 'delete' }%></div>
           <% else %>
