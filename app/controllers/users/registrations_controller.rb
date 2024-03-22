@@ -2,7 +2,8 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_account_update_params, only: [:update]
+  skip_before_action :require_name
 
   # GET /resource/sign_up
   # def new
@@ -19,10 +20,45 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  # GET /resource/complete
+  def complete_edit
+    @user = User.find(current_user.id)
+    render :complete_edit
+  end
+
+   # POST /resource/complete
+   def complete_update
+    @user = User.find(current_user.id)
+    @user.update(complete_params)
+    if [nil, ''].include?(params[:user][:first_name].strip) || [nil, ''].include?(params[:user][:last_name].strip)
+      if [nil, ''].include?(params[:user][:first_name].strip)
+        @user.errors.add(:first_name, "can't be blank")
+      end
+      if [nil, ''].include?(params[:user][:last_name].strip)
+        @user.errors.add(:last_name, "can't be blank")
+      end
+      render 'devise/registrations/complete_edit', status: :unprocessable_entity and return
+    end
+    redirect_to :root
+  end
+
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    @user = User.find(current_user.id)
+    if [nil, ''].include?(params[:user][:first_name].strip) || [nil, ''].include?(params[:user][:last_name].strip)
+      if [nil, ''].include?(params[:user][:first_name].strip)
+        @user.errors.add(:first_name, "can't be blank")
+      end
+      if [nil, ''].include?(params[:user][:last_name].strip)
+        @user.errors.add(:last_name, "can't be blank")
+      end
+      if [''].include?(params[:user][:current_password])
+        @user.errors.add(:current_password, "can't be blank")
+      end
+      render 'devise/registrations/edit', status: :unprocessable_entity and return
+    end
+    super
+  end
 
   # DELETE /resource
   # def destroy
@@ -46,9 +82,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name current_password])
+  end
+
+  def complete_params
+    params.require(:user).permit(:first_name, :last_name)
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

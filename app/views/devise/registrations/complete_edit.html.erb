@@ -1,0 +1,25 @@
+<h2>Complete registration</h2>
+
+<div>Please complete your profile by filling out with your name and last name.</div>
+
+<%= form_for(@user, url: 'complete', html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: @user %>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autocomplete: "family-name" %>
+  </div>
+
+  <div class="actions">
+      <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<div>Unhappy? <%= button_to "Cancel my account", user_registration_path, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
