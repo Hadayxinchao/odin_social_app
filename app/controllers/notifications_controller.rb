@@ -1,4 +1,4 @@
-class NotificationsController < ApplicationController 
+class NotificationsController < ApplicationController
   before_action :check_authorization, only: %i[destroy]
 
   def index
@@ -17,7 +17,7 @@ class NotificationsController < ApplicationController
 
   def check_authorization
     notification = Notification.find(params[:id])
-    return if notification.user == current_user
+    return if notification.user_id == current_user.id
 
     flash[:error] = 'You are not authorized to perform this action'
     redirect_back_or_to root_path, status: :forbidden

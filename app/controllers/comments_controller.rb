@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
 
   def check_authorization
     comment = Comment.find(params[:id])
-    return if comment.author == current_user || commemt.post.author == current_user
+    return if comment.author == current_user || comment.post.author == current_user
 
     flash[:error] = 'You are not authorized to delete this comment'
     redirect_back_or_to root_path, status: :forbidden

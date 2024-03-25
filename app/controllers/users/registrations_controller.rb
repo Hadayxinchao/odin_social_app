@@ -56,6 +56,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if [nil, ''].include?(params[:user][:first_name].strip) || [nil, ''].include?(params[:user][:last_name].strip)
       render 'devise/registrations/edit', status: :unprocessable_entity and return
     end
+
     if params[:user][:avatar] && params[:user][:current_password] == ''
       @user.errors.add(:current_password, "can't be blank")
       render 'devise/registrations/edit', status: :unprocessable_entity and return
@@ -105,14 +106,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     user_path(resource)
-  end
-
-  def set_avatar
-    user = current_user
-    avatar_url = URI.parse("https://gravatar.com/avatar/#{Digest::SHA256.hexdigest(user.email)}")
-    filename = File.basename(avatar_url.path)
-    avatar_file = avatar_url.open
-    user.avatar.attach(io: avatar_file, filename: filename)
   end
 
   # The path used after sign up.

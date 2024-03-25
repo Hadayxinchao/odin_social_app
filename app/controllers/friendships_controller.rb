@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-  before_action :check_authorization, only: %i[update, destroy]
+  before_action :check_authorization, only: %i[update destroy]
 
   def index
     @user = User.find(params[:user_id])
@@ -92,7 +92,7 @@ class FriendshipsController < ApplicationController
 
   def check_authorization
     friendship = Friendship.find(params[:id])
-    return if friendship.requester == current_user
+    return if friendship.user_id == current_user.id
 
     flash[:error] = 'You are not authorized to perform this action'
     redirect_back_or_to root_path, status: :forbidden

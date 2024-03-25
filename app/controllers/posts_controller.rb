@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :check_authorization, only: %i[destroy]
   def index
     friends_ids = Friendship.where(user_id: current_user.id, status: 2).pluck(:friend_id)
     @post = Post.new
@@ -18,7 +19,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    if @post.save 
+    if @post.save
       if request.headers['Referer'].include?('users')
         redirect_back_or_to root_path
       else
@@ -44,5 +45,13 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:content)
+  end
+
+  def check_authorization
+    post = Post.find(params[:id])
+    return if post.author == current_user
+
+    flash[:error] = 'You are not authorized to delete this post'
+    redirect_back_or_to root_path, status: :forbidden
   end
 end
