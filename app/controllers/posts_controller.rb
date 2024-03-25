@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def index
     friends_ids = Friendship.where(user_id: current_user.id, status: 2).pluck(:friend_id)
-    @post = Post.new()
+    @post = Post.new
     @posts = Post.where(user_id: current_user.id)
                  .or(Post.where(user_id: friends_ids))
                  .order(created_at: :desc)
@@ -12,12 +12,13 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new()
+    @post = Post.new
   end
 
   def create
     @post = Post.new(post_params)
-    if @post.save
+    @post.user_id = current_user.id
+    if @post.save 
       if request.headers['Referer'].include?('users')
         redirect_back_or_to root_path
       else
@@ -42,6 +43,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, :user_id)
+    params.require(:post).permit(:content)
   end
 end

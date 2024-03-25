@@ -10,7 +10,6 @@
       <%= form_with model: Like.new(), url:likes_path do |f| %>
         <%= f.hidden_field :likeable_type, value: 'Post' %>
         <%= f.hidden_field :likeable_id, value: post.id %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
         <%= f.submit 'Like' %>
       <% end %>
     <% end %>
@@ -24,7 +23,6 @@
   <%= form_with model: Comment.new(), url: comments_path do |f| %>
     <%= f.text_area :content, placeholder: 'Comment here' %>
     <%= f.hidden_field :post_id, value: post.id %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.submit 'Comment' %>
   <% end %>
 </div>

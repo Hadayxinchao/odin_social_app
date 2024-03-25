@@ -1,5 +1,4 @@
 <%= form_with model: post do |form| %>
   <%= form.text_area :content, placeholder: "Tell the world what you're thinking" %>
-  <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.submit 'Post' %>
 <% end %>

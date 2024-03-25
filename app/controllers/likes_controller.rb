@@ -1,6 +1,8 @@
 class LikesController < ApplicationController
   def create
     like = Like.create(like_params)
+    like.user_id = current_user.id
+    like.save
 
     # Creates a notification unless like author is the post/comment author
     unless like.user_id == like.likeable.user_id
@@ -34,6 +36,6 @@ class LikesController < ApplicationController
   end
 
   def like_params
-    params.require(:like).permit(:user_id, :likeable_id, :likeable_type)
+    params.require(:like).permit(:likeable_id, :likeable_type)
   end
 end
