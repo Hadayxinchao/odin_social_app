@@ -1,17 +1,21 @@
 <div id=<%= "comment_#{comment.id}" %> class="comment">
   <div><%= comment.author.email %></div>
   <div><%= simple_format h comment.content %></div>
-  <div>Likes: <%= comment.likes.size %></div>
-  <% if Like.where(user_id: current_user.id, likeable_type: 'Comment', likeable_id: comment.id).exists? %>
-    <%= link_to 'Unlike', like_path(comment.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
-  <% else %>
-    <%= form_with model: Like.new(), url: likes_path do |f| %>
-      <%= f.hidden_field :likeable_type, value: 'Comment' %>
-      <%= f.hidden_field :likeable_id, value: comment.id %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      <%= f.submit 'Like' %>
+  <div id=<%= "Comment_#{comment.id}_likes_counter"%>>
+    Likes: <%= comment.likes.size %>
+  </div>
+  <div id=<%= "Comment_#{comment.id}_likes" %>>
+    <% if Like.where(user_id: current_user.id, likeable_type: 'Comment', likeable_id: comment.id).exists? %>
+      <%= link_to 'Unlike', like_path(comment.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
+    <% else %>
+      <%= form_with model: Like.new(), url: likes_path do |f| %>
+        <%= f.hidden_field :likeable_type, value: 'Comment' %>
+        <%= f.hidden_field :likeable_id, value: comment.id %>
+        <%= f.submit 'Like' %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+    
   <% if current_user == comment.author || current_user == comment.post.author %>
     <%= link_to 'Delete Comment', post_comment_path(comment.post, comment), data: { turbo_method: :delete } %>
   <% end %>

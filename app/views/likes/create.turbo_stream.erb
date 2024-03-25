@@ -1,0 +1,6 @@
+<%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes" do %>
+  <%= link_to 'Unlike', like_path(@like.id), data: { turbo_method: :delete } %>
+<% end %>
+<%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes_counter" do %>
+  <%= "Likes: #{@like.likeable.likes.size}" %>
+<% end %>

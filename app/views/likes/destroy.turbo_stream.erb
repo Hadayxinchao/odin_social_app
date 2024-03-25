@@ -1,0 +1,9 @@
+<%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes" do %>
+  <%= form_with model: Like.new, url: likes_path do |f| %>
+    <%= f.hidden_field :likeable_type, value: "#{@like.likeable_type}" %>
+    <%= f.hidden_field :likeable_id, value: @like.likeable_id %>
+    <%= f.submit 'Like' %>
+
+<%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes_counter" do %>
+  <%= "Likes: #{@like.likeable.likes.size}" %>
+<% end %>

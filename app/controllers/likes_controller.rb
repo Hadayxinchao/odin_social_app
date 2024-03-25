@@ -1,5 +1,6 @@
 class LikesController < ApplicationController
-  before_action :check_authorization, only: %i[destroy]
+  before_action :check_authorization_for_destroy, only: %i[destroy]
+  before_action :check_authorization_for_create, only: %i[create]
 
   def create
     like = Like.create(like_params)
@@ -41,11 +42,24 @@ class LikesController < ApplicationController
     params.require(:like).permit(:likeable_id, :likeable_type)
   end
 
-  def check_authorization
+  def check_authorization_for_destroy
     like = Like.find(params[:id])
     return if like.user_id == current_user.id
 
     flash[:error] = 'You are not authorized to perform this action'
     redirect_to root_path, status: :forbidden
+  end
+
+  # Allow liking only:
+  # - resources (comments or posts) whose author is the current_user or one of current_user's friends
+  # - comments that belongs to posts whose author is the current_user or one of current_user's friends
+  def check_authorization_for_create
+    like = Like.new(like_params)
+    resource = like.likeable
+    allowed_list = current_user.friends << current_user
+
+    allow_create = allowed_list.include?(resource.author) || (resource.is_a?(Comment) && allowed_list.include?(resource.post.author))
+
+    redirect_back_or_to root_path, status: :forbidden unless allow_create
   end
 end
