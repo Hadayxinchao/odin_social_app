@@ -13,10 +13,10 @@
     <%= f.text_field :last_name, autocomplete: "family-name" %>
   </div>
 
-  <div class="field">
+  <div class="field" data-controller='avatar' >
     <%= f.label :avatar %><br />
-    <%= image_tag @user.avatar.variant(:thumb)  %><br>
-    <%= f.file_field :avatar %>
+    <%= f.file_field :avatar, data: { action: 'change->avatar#preview', 'avatar-target': 'input' } %>
+    <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
   </div>
 
   <div class="field">

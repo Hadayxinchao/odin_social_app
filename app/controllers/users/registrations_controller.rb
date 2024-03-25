@@ -28,7 +28,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
    # POST /resource/complete
-   def complete_update
+  def complete_update
     @user = User.find(current_user.id)
     @user.update(complete_params)
     if [nil, ''].include?(params[:user][:first_name].strip) || [nil, ''].include?(params[:user][:last_name].strip)

@@ -21,10 +21,10 @@
 
   <div>If you would like to update your photo, please upload it now.</div>e
 
-  <div class="field">
+  <div class="field" data-controller='avatar'>
     <%= f.label :avatar %><br />
-    <%= image_tag @user.avatar.variant(:thumb)  %><br>
-    <%= f.file_field :avatar %>
+    <%= f.file_field :avatar, data: { action: 'change->avatar#preview', 'avatar-target': 'input' } %>
+    <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
   </div>
 
   <% if @user.first_name.nil? || @user.first_name.empty? || @user.last_name.nil? || @user.last_name.empty? %>
