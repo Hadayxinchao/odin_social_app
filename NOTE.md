@@ -1,4 +1,4 @@
-# FILEPATH: /home/hoangha/Documents/repos/local_rails_projects/odinsocial/NOTE.md
+# ERRORS: google-auth2
 
  * This note provides information on how to resolve the "redirect_uri_mismatch" error when using google_auth.
  * 
@@ -9,3 +9,7 @@
  * 
  * Additionally, you need to change the "Authorized redirect URIs" on the Google Console Could (https://console.cloud.google.com).
 
+# ERRORS: Active Storage
+ * Error details: "LoadError (Could not open library 'vips.so.42': vips.so.42: cannot open shared object file: No such file or directory. Could not open library 'libvips.so.42': libvips.so.42: cannot open shared object file: No such file or directory. Searched in , /usr/lib, /usr/local/lib, /opt/local/lib):"
+ * The error message indicates that the system is unable to find the libvips library, which is a dependency for some Ruby gems like image_processing or ruby-vips.
+ * try: "sudo apt-get install libvips42"
