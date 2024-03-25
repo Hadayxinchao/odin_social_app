@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Posts::CommentsController < ApplicationController
   before_action :check_authorization_for_destroy, only: %i[destroy]
   before_action :check_authorization_for_other_actions, except: %i[destroy]
 
