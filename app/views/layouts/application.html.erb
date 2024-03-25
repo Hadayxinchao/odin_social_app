@@ -21,7 +21,7 @@
       <h2>Notifications</h2>
       <div class='notifications'>
         <% current_user.notifications.order(created_at: :desc).first(5).each do |n| %>
-          <div><%= link_to n.content, n.path %> - <%= link_to 'x', n, data: { turbo_method: 'delete' } %></div>
+          <div><%= link_to n.content, n.path %> - <%= link_to 'Mark as read', n, data: { turbo_method: 'delete' } %></div>
         <% end %>
       </div>
     <% end %>

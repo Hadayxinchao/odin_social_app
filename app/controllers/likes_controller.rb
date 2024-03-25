@@ -1,4 +1,6 @@
 class LikesController < ApplicationController
+  before_action :check_authorization, only: %i[destroy]
+
   def create
     like = Like.create(like_params)
     like.user_id = current_user.id
@@ -29,13 +31,21 @@ class LikesController < ApplicationController
 
   def notification_text(like)
     if like.likeable_type == 'Comment'
-      "#{like.user.email} has liked your comment"
+      "#{like.user.first_name} #{like.user.last_name} has liked your comment"
     elsif like.likeable_type == 'Post'
-      "#{like.user.email} has liked your post"
+      "#{like.user.first_name} #{like.user.last_name} has liked your post"
     end
   end
 
   def like_params
     params.require(:like).permit(:likeable_id, :likeable_type)
+  end
+
+  def check_authorization
+    like = Like.find(params[:id])
+    return if like.user_id == current_user.id
+
+    flash[:error] = 'You are not authorized to perform this action'
+    redirect_to root_path, status: :forbidden
   end
 end

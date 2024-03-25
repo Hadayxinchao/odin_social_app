@@ -6,7 +6,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :trackable, :timeoutable, :omniauthable, omniauth_providers: [:google_oauth2]
-
   before_destroy do |user|
     Friendship.where(friend_id: user.id).each(&:destroy)
   end
@@ -30,6 +29,7 @@ class User < ApplicationRecord
 
   def self.persist_user(access_token)
     data = access_token.info
+<<<<<<< HEAD
     user = User.create(first_name: data['first_name'],
                        last_name: data['last_name'],
                        email: data['email'],
@@ -39,6 +39,13 @@ class User < ApplicationRecord
     avatar_file = avatar_url.open
     user.photo.attach(io: avatar_file, filename: filename)
     user
+=======
+    User.create(first_name: data['first_name'],
+                last_name: data['last_name'],
+                email: data['email'],
+                password: Devise.friendly_token[0,20],
+                photo: data['image'])
+>>>>>>> fcbef6d (Confirm name and last name after registration with OAuth)
   end
 
   def create_friendship(friend)

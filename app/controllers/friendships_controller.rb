@@ -1,10 +1,12 @@
 class FriendshipsController < ApplicationController
+  before_action :check_authorization, only: %i[update, destroy]
+
   def index
     @user = User.find(params[:user_id])
     @name = if @user == current_user
               'My'
             else
-              if @user.email.downcase[-1] != 's'
+              if @user.first_name.downcase[-1] != 's'
                 "#{@user.first_name}'s"
               else
                 "#{@user.first_name}'"
@@ -77,14 +79,22 @@ class FriendshipsController < ApplicationController
       Notification.create(user_id: friendship.requested.id,
                           notificationable_id: friendship.id,
                           notificationable_type: 'Friendship',
-                          content: "#{friendship.requester.email} has sent you a friend request",
+                          content: "#{friendship.requester.first_name} #{friendship.requester.last_name} has sent you a friend request",
                           path: user_path(friendship.requester))
     else
       Notification.create(user_id: friendship.requester.id,
                           notificationable_id: friendship.id,
                           notificationable_type: 'Friendship',
-                          content: "#{friendship.requested.email} has accepted your friend request",
+                          content: "#{friendship.requester.first_name} #{friendship.requester.last_name} has accepted your friend request",
                           path: user_path(friendship.requested))
     end
+  end
+
+  def check_authorization
+    friendship = Friendship.find(params[:id])
+    return if friendship.requester == current_user
+
+    flash[:error] = 'You are not authorized to perform this action'
+    redirect_back_or_to root_path, status: :forbidden
   end
 end
