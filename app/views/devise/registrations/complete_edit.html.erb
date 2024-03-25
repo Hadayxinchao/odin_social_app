@@ -1,8 +1,8 @@
-<h2>Complete registration</h2>
-  
 <% if [nil, ''].include?(@first_name) || [nil, ''].include?(@last_name) %>
+  <h2>Complete profile</h2>
   <div>Please complete your profile by filling out with your name and last name.</div>
 <% else %>
+  <h2>Comfirm profile information</h2>
   <div>Please confirm your name and last name.</div>
 <% end %>
 
@@ -22,7 +22,6 @@
   <div>If you would like to update your photo, please upload it now.</div>
 
   <div class="field" data-controller='avatar'>
-    <%= f.label :avatar %><br />
     <%= f.file_field :avatar, data: { action: 'change->avatar#preview', 'avatar-target': 'input' } %><br>
     <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
   </div>
