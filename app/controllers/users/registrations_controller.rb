@@ -24,10 +24,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/complete
   def complete_edit
     @user = User.find(current_user.id)
+    @first_name = strip_or_nil(@user, 'first_name')
+    @last_name = strip_or_nil(@user, 'last_name')
     render :complete_edit
   end
 
-   # POST /resource/complete
+  # POST /resource/complete
   def complete_update
     @user = User.find(current_user.id)
     @user.update(complete_params)
@@ -46,16 +48,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     @user = User.find(current_user.id)
+    @user.errors.add(:first_name, "can't be blank") if [nil, ''].include?(params[:user][:first_name].strip)
+    @user.errors.add(:last_name, "can't be blank") if [nil, ''].include?(params[:user][:last_name].strip)
+    @user.errors.add(:current_password, "can't be blank") if [''].include?(params[:user][:current_password])
+
     if [nil, ''].include?(params[:user][:first_name].strip) || [nil, ''].include?(params[:user][:last_name].strip)
-      if [nil, ''].include?(params[:user][:first_name].strip)
-        @user.errors.add(:first_name, "can't be blank")
-      end
-      if [nil, ''].include?(params[:user][:last_name].strip)
-        @user.errors.add(:last_name, "can't be blank")
-      end
-      if [''].include?(params[:user][:current_password])
-        @user.errors.add(:current_password, "can't be blank")
-      end
+      render 'devise/registrations/edit', status: :unprocessable_entity and return
+    end
+    if params[:user][:avatar] && params[:user][:current_password] == ''
+      @user.errors.add(:current_password, "can't be blank")
       render 'devise/registrations/edit', status: :unprocessable_entity and return
     end
     super
@@ -79,7 +80,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
   # end
 
   # If you have extra params to permit, append them to the sanitizer.

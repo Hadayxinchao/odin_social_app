@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :comments, inverse_of: 'author', dependent: :destroy
   has_one_attached :avatar
   has_one_attached :avatar do |attachable|
-    attachable.variant :thumb, resize_to_fit: [100, 100]
+    attachable.variant :thumb, resize_to_fit: [90, 90]
   end
   validates :email, presence: true
 
