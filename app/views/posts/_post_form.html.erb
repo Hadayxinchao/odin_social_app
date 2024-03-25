@@ -1,4 +1,4 @@
-<%= form_with model: post do |form| %>
+<%= form_with model: post, id: 'post-form' do |form| %>
   <%= form.text_area :content, placeholder: "Tell the world what you're thinking" %>
   <%= form.submit 'Post' %>
 <% end %>

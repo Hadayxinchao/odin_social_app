@@ -9,12 +9,14 @@
 
 <% if current_user == @user %>
   <h2>New post</h2>
-  <%= render 'posts/post_form', post: @post %>
+  <%= turbo_frame_tag id='new_post', src: new_post_path %>
 <% end %>
 
 <h2><%= @name %> recent posts</h2>
 <% if current_user == @user || current_user.friendship_confirmed?(@user) %>
-  <%= render @posts %>
+  <div id="posts">
+    <%= render @posts %>
+  </div>
 <% else %>
   <div>Add <%= @user.email %> as a friend to see his/her posts.</div>
 <% end %>

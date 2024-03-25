@@ -1,13 +1,16 @@
 <h1>New post</h1>
-<% if @post.errors.any? %>
-  <div id="error_explaination">
-    <h2><%= plularize(@post.errors.count, 'error') %> prohibited the post from being saved.</h2>
-    <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>      
-  </div>
-<% end %>
+<%= turbo_frame_tag id='new_post' do %>
+  <% if @post.errors.any? %>
+    <div id="error_explaination">
+      <h2><%= plularize(@post.errors.count, 'error') %> prohibited the post from being saved.</h2>
 
-<%= render 'post_form', post: @post %>
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>   
+    </div>
+  <% end %>
+
+  <%= render 'post_form', post: @post %>
+<% end %>
