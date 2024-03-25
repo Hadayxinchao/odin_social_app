@@ -94,14 +94,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def set_avatar
-    if current_user
-      user = current_user
-      avatar_url = URI.parse("https://gravatar.com/avatar/#{Digest::SHA256.hexdigest(user.email)}")
-      filename = File.basename(avatar_url.path)
-      avatar_file = avatar_url.open
-      user.avatar.attach(io: avatar_file, filename: filename)
-    end
     return unless current_user
+
+    user = current_user
+    avatar_url = URI.parse("https://gravatar.com/avatar/#{Digest::SHA256.hexdigest(user.email)}")
+    filename = File.basename(avatar_url.path)
+    avatar_file = avatar_url.open
+    user.avatar.attach(io: avatar_file, filename: filename)
+  end
+
+  def after_update_path_for(resource)
+    user_path(resource)
   end
 
   # The path used after sign up.
