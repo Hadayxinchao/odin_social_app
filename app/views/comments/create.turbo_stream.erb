@@ -1,0 +1,7 @@
+<%= turbo_stream.append "comments_post_#{@comment.post.id}", @comment %>
+<%= turbo_stream.update "turbo_frame_tag_post_#{@comment.post.id}" do %>
+  <%= turbo_frame_tag id='new_comment', src: new_post_comment_path(@comment.post) %>
+<% end %>
+<%= turbo_stream.update "post_#{@comment.post.id}_comments_counter" do %>
+  <%= "Comments: #{@comment.post.comments.size}" %>
+<% end %>

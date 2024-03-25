@@ -1,0 +1,8 @@
+<%= turbo_frame_tag id='comments' do %>
+  <div id=<%= "comments_post_#{@post.id}"%>>
+    <%= render @comments %>
+  </div>
+<% end %>
+<div id=<%= "turbo_frame_tag_post_#{@post.id}"%>>
+  <%= turbo_frame_tag id='new_comment', src: new_post_comment_path(@post) %>
+</div>

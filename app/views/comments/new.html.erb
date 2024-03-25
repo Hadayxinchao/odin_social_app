@@ -1,0 +1,14 @@
+<%= turbo_frame_tag id='new_comment' do %>
+  <% if @comment.errors.any? %>
+    <div id='error_explaination'>
+      <h2><%= pluralize(@comment.errors.count, 'error') %> prohibited the comment from being saved.</h2>
+      <ul>
+        <% @comment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render 'comment_form', comment: @comment %>
+<% end %>

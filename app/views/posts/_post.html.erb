@@ -2,7 +2,7 @@
   <div><%= post.author.email %></div>
   <div><%= simple_format h post.content %></div>
   <div>Likes: <%= post.likes.size %> </div>
-  <div>Comments: <%= post.comments.size %></div>
+  <div id=<%= "post_#{post.id}_comment_counter" %> >Comments: <%= post.comments.size %></div>
   <div>
     <% if Like.where(user_id: current_user.id, likeable_type: 'Post', likeable_id: post.id).exists? %>
       <%= link_to 'Unlike', like_path(post.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
@@ -18,11 +18,9 @@
     <%= link_to 'Delete post', post_path(post.id), data: { turbo_method: 'delete' } %>
   <% end %>
   
-  <%= render post.comments %>
+  <%= turbo_frame_tag id='comments', src: post_comments_path(post) %>
 
-  <%= form_with model: Comment.new(), url: comments_path do |f| %>
-    <%= f.text_area :content, placeholder: 'Comment here' %>
-    <%= f.hidden_field :post_id, value: post.id %>
-    <%= f.submit 'Comment' %>
-  <% end %>
+  <div id=<%= "turbo_frame_tag_post_#{post.id}" %>>
+    <%= turbo_frame_tag id='new_comment', src: new_post_comment_path(post) %>
+  </div>
 </div>

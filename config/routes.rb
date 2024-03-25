@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   root 'posts#index'
-  resources :posts, except: %i[edit update]
+  resources :posts, except: %i[edit update] do
+    resources :comments, except: %i[show edit update]
+  end
   resources :users, only: [:index, :show] do
     resources :friends, only: %i[index], controller: 'friendships'
   end
   resources :friends, only: %i[create update destroy], controller: 'friendships', as: 'friendships'
   resources :notifications, only: %i[destroy]
   resources :likes, only: %i[create destroy]
-  resources :comments, only: %i[create destroy]
+  
   devise_for :users, path: 'accounts', controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                                       registrations: 'users/registrations',
                                                       sessions: 'users/sessions' }
