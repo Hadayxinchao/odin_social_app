@@ -12,19 +12,27 @@
  *
  *= require_tree .
  *= require_self
- */
- .post, .comment {
+*/
+.post, .comment {
   border: 1px solid black;
- }
+}
 
- .error {
+.error {
   color: red;
- }
+}
 
- .field_with_errors {
+.field_with_errors {
   border: 1px solid red;
- }
+}
 
- .success {
+.success {
   color: green;
- }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.scroll-into {
+  border: 2px solid red;
+}

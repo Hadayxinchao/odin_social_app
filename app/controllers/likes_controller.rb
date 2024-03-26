@@ -10,9 +10,9 @@ class LikesController < ApplicationController
     # Creates a notification unless like author is the post/comment author
     unless @like.user_id == @like.likeable.user_id
       path = if @like.likeable_type == 'Post'
-               post_path(@like.likeable.id)
+               "#{post_path(@like.likeable.id)}"
              else
-               post_path(@like.likeable.post.id)
+               "#{post_path(@like.likeable.post.id)}#comment_#{@like.likeable.id}"
              end
       notification = create_notification(@like, path)
       broadcast_notification(notification)

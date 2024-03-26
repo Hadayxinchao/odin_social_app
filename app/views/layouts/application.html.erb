@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-controller='scroll'>
   <head>
     <title>TopFacebook</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,7 +23,9 @@
         <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
           <%= render '/notifications/recent_notification', n: n %>
         <% end %>
-        <div><%= link_to 'All notifications', notifications_path %></div>
+        <div>
+          <%= link_to 'All notifications', notifications_path %>
+        </div>
       </div>
     <% end %>
     <% flash.each do |name, msg| %>

@@ -64,6 +64,6 @@ class Posts::CommentsController < ApplicationController
                         notificationable_type: 'Comment',
                         user_id: comment.post.author.id,
                         content: "#{current_user.first_name} #{current_user.last_name} has commented on your post",
-                        path: post_path(comment.post.id))
+                        path: "#{post_path(comment.post.id)}#comment_#{comment.id}")
   end
 end
