@@ -136,6 +136,10 @@ GEM
       activesupport (>= 5.0.0)
     jwt (2.8.1)
       base64
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.9.0)
+      launchy (>= 2.2, < 3)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -320,6 +324,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  letter_opener
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg (~> 1.1)
