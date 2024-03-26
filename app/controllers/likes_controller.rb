@@ -3,22 +3,18 @@ class LikesController < ApplicationController
   before_action :check_authorization_for_create, only: %i[create]
 
   def create
-    like = Like.create(like_params)
-    like.user_id = current_user.id
-    like.save
+    @like = Like.create(like_params)
+    @like.user_id = current_user.id
+    @like.save
 
     # Creates a notification unless like author is the post/comment author
-    unless like.user_id == like.likeable.user_id
-      path = if like.likeable_type == 'Post'
-               post_path(like.likeable)
+    unless @like.user_id == @like.likeable.user_id
+      path = if @like.likeable_type == 'Post'
+               post_path(@like.likeable)
              else
-               post_path(like.likeable.post)
+               post_path(@like.likeable.post)
              end
-      Notification.create(notificationable_id: like.id,
-                          notificationable_type: 'Like',
-                          user_id: like.likeable.author.id,
-                          content: notification_text(like),
-                          path: path)
+      create_notification(@like, path)
     end
     redirect_back_or_to root_path
   end
@@ -61,5 +57,13 @@ class LikesController < ApplicationController
     allow_create = allowed_list.include?(resource.author) || (resource.is_a?(Comment) && allowed_list.include?(resource.post.author))
 
     redirect_back_or_to root_path, status: :forbidden unless allow_create
+  end
+
+  def create_notification(like, path)
+    Notification.create(notificationable_id: like.id,
+                        notificationable_type: 'Like',
+                        user_id: like.likeable.author.id,
+                        content: notification_text(like),
+                        path: path)
   end
 end

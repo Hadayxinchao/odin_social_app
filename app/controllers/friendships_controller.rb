@@ -35,7 +35,8 @@ class FriendshipsController < ApplicationController
     friend = User.find(params[:friend_id])
     friendship = current_user.create_friendship(friend)
     friendship.create_mirror_friendship
-    create_notification(friendship)
+    notification = create_notification(friendship)
+    broadcast_notification(notification)
     redirect_back_or_to friendship.requested
   end
 
@@ -49,7 +50,8 @@ class FriendshipsController < ApplicationController
     friendship = Friendship.find(params[:id])
     friendship.update(status: 2)
     friendship.mirror_friendship.update(status: 2)
-    create_notification(friendship)
+    notification = create_notification(friendship)
+    broadcast_notification(notification)
     redirect_back_or_to friendship.requester
   end
 

@@ -17,11 +17,8 @@ class Posts::CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         unless current_user == @comment.post.author
-          Notification.create(notificationable_id: @comment.id,
-                              notificationable_type: 'Comment',
-                              user_id: @comment.post.author.id,
-                              content: "#{current_user.first_name} #{current_user.last_name} has commented on your post",
-                              path: post_path(@comment.post))
+          notification = create_notification(@comment)
+          broadcast_notification(notification)
         end
         format.turbo_stream
         format.html { redirect_back_or_to post_comments_path(@comment.post) }
@@ -60,5 +57,13 @@ class Posts::CommentsController < ApplicationController
 
     flash[:error] = 'You are not authorized to delete this comment'
     redirect_back_or_to root_path, status: :forbidden
+  end
+
+  def create_notification(comment)
+    Notification.create(notificationable_id: comment.id,
+                        notificationable_type: 'Comment',
+                        user_id: comment.post.author.id,
+                        content: "#{current_user.first_name} #{current_user.last_name} has commented on your post",
+                        path: post_path(comment.post.id))
   end
 end
