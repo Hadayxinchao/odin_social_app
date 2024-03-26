@@ -2,5 +2,9 @@
   <%= link_to 'Unlike', like_path(@like.id), data: { turbo_method: :delete } %>
 <% end %>
 <%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes_counter" do %>
-  <%= "Likes: #{@like.likeable.likes.size}" %>
+  <% if @like.likeable_type == 'Post' %>
+    Likes: <%= link_to @like.likeable.likes.size, post_likes_path(@like.likeable) %>
+  <% else %>
+    Likes: <%= link_to @like.likeable.likes.size, comment_likes_path(@like.likeable), data: { turbo_frame: "_top" }%>
+  <% end %>
 <% end %>

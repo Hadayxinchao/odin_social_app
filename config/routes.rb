@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root 'posts#index'
   resources :posts, except: %i[edit update] do
+    resources :likes, only: %i[index], module: 'posts'
     resources :comments, except: %i[show edit update], module: 'posts'
   end
+  get 'comments/:id/likes', to: 'comments/likes#index', as: 'comment_likes'
   resources :users, only: %i[index show] do
     resources :friends, only: %i[index], controller: 'friendships'
   end

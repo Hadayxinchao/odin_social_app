@@ -1,7 +1,9 @@
 <div id=<%= "post_#{post.id}" %> class="post">
   <div><%= post.author.email %></div>
   <div><%= simple_format h post.content %></div>
-  <div id=<%= "Post_#{post.id}_likes_counter"%>>Likes: <%= post.likes.size %> </div>
+  <div id=<%= "Post_#{post.id}_likes_counter"%>>
+    Likes: <%= link_to post.likes.size, post_likes_path(post) %> 
+  </div>
   <div id=<%= "post_#{post.id}_comment_counter" %> >Comments: <%= post.comments.size %></div>
   <div id=<%= "Post_#{post.id}_likes" %>>
     <% if Like.where(user_id: current_user.id, likeable_type: 'Post', likeable_id: post.id).exists? %>

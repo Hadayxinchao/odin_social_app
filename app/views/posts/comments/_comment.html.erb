@@ -2,7 +2,7 @@
   <div><%= comment.author.email %></div>
   <div><%= simple_format h comment.content %></div>
   <div id=<%= "Comment_#{comment.id}_likes_counter"%>>
-    Likes: <%= comment.likes.size %>
+    Likes: <%= link_to comment.likes.size, comment_likes_path(comment), data: { turbo_frame: "_top"} %>
   </div>
   <div id=<%= "Comment_#{comment.id}_likes" %>>
     <% if Like.where(user_id: current_user.id, likeable_type: 'Comment', likeable_id: comment.id).exists? %>
