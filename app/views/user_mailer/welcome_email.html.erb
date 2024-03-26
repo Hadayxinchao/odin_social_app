@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to OdinSocial!</h1>
+    <br>
+    <div>We are happy that you're here, <%= @name %>!</div>
+    <div>From now on, you can share your ideas with the world, and connect with your friends to see what they're up to and interact with them!</div>
+    <br>
+    <div>What about start connecting with your friends?</div>
+    <div><%= link_to "Let me find my friends", users_url %></div>
+    <br>
+    <div>What about sharing your ideas today?</div>
+    <div><%= link_to "Let me share something", new_post_url %></div>
+    <br>
+    <div>Want to review your profile information or picture?</div>
+    <div><%= link_to "Let me review my profile", edit_user_registration_url %></div>
+  </body>
+</html>
