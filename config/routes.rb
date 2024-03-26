@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   resources :posts, except: %i[edit update] do
     resources :comments, except: %i[show edit update], module: 'posts'
   end
-  resources :users, only: [:index, :show] do
+  resources :users, only: %i[index show] do
     resources :friends, only: %i[index], controller: 'friendships'
   end
   resources :friends, only: %i[create update destroy], controller: 'friendships', as: 'friendships'
   resources :notifications, only: %i[index destroy]
+  put 'notifications/:id', to: 'notifications#update_hidden', as: 'update_notification_hidden'
   resources :likes, only: %i[create destroy]
 
   devise_for :users, path: 'accounts', controllers: { omniauth_callbacks: 'users/omniauth_callbacks',

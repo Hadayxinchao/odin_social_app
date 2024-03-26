@@ -1,11 +1,17 @@
 class NotificationsController < ApplicationController
-  before_action :check_authorization, only: %i[destroy]
+  before_action :check_authorization, except: %i[index]
 
   def index
     @notifications = current_user.notifications.order(created_at: :desc)
   end
 
-  def create
+  def update_hidden
+    @notification = Notification.find(params[:id])
+    @notification.update(hidden: true)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back_or_to root_path }
+    end
   end
 
   def destroy

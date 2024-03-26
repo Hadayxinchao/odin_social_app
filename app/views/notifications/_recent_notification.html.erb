@@ -1,0 +1,5 @@
+<%= link_to n.content, n.path %>
+-
+<%= form_with url: update_notification_hidden_path(n), method: 'put' do |form| %>
+  <%= form.submit 'Hide' %>
+<% end %>
