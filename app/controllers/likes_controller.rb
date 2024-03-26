@@ -60,7 +60,7 @@ class LikesController < ApplicationController
   def check_authorization_for_create
     like = Like.new(like_params)
     resource = like.likeable
-    allowed_list = current_user.friends << current_user
+    allowed_list = current_user.friends.to_a << current_user
 
     allow_create = allowed_list.include?(resource.author) || (resource.is_a?(Comment) && allowed_list.include?(resource.post.author))
 

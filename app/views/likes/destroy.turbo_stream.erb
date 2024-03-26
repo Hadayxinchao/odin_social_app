@@ -3,6 +3,8 @@
     <%= f.hidden_field :likeable_type, value: "#{@like.likeable_type}" %>
     <%= f.hidden_field :likeable_id, value: @like.likeable_id %>
     <%= f.submit 'Like' %>
+  <% end %>
+<% end %>
 
 <%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes_counter" do %>
   <%= "Likes: #{@like.likeable.likes.size}" %>
