@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :friends, only: %i[index], controller: 'friendships'
   end
   resources :friends, only: %i[create update destroy], controller: 'friendships', as: 'friendships'
-  resources :notifications, only: %i[destroy]
+  resources :notifications, only: %i[index destroy]
   resources :likes, only: %i[create destroy]
 
   devise_for :users, path: 'accounts', controllers: { omniauth_callbacks: 'users/omniauth_callbacks',

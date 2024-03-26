@@ -2,6 +2,7 @@ class NotificationsController < ApplicationController
   before_action :check_authorization, only: %i[destroy]
 
   def index
+    @notifications = current_user.notifications.order(created_at: :desc)
   end
 
   def create
@@ -10,7 +11,10 @@ class NotificationsController < ApplicationController
   def destroy
     @notification = Notification.find(params[:id])
     @notification.destroy
-    redirect_back_or_to root_path
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_back_or_to root_path }
+    end
   end
 
   private
