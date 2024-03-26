@@ -21,9 +21,7 @@
       <h2>Recent notifications</h2>
       <div class="notifications">
         <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
-          <div id=<%= "recent_notification_#{n.id}" %>>
-            <%= render 'notifications/recent_notification', n: n %>
-          </div>
+          <%= render '/notifications/recent_notification', n: n %>
         <% end %>
         <div><%= link_to 'All notifications', notifications_path %></div>
       </div>

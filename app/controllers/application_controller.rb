@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def broadcast_notification(notification)
-    NotificationsChannel.broadcast_to(User.find(notification.user_id), notification)
+    html = render_to_string(partial: 'notifications/recent_notification', locals: { n: notification })
+    NotificationsChannel.broadcast_to(User.find(notification.user_id), html: html )
   end
 end
