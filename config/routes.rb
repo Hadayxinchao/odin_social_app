@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   devise_for :users, path: 'accounts', controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                                       registrations: 'users/registrations',
                                                       sessions: 'users/sessions',
-                                                      passwords: 'users/passwords'}
+                                                      passwords: 'users/passwords' }
   devise_scope :user do
     get '/accounts/complete', to: 'users/registrations#complete_edit'
     put '/accounts/complete', to: 'users/registrations#complete_update'
