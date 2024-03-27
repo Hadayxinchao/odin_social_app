@@ -26,6 +26,6 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.excluding(current_user).order(:first_name)
+    @users = User.all.where.not(first_name: nil, last_name: nil).excluding(current_user).order(:first_name)
   end
 end
