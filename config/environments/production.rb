@@ -82,6 +82,7 @@ Rails.application.configure do
     enable_starttls: true,
     open_timeout:    5,
     read_timeout:    5 }
+  config.action_mailer.default_url_options = { :host => 'https://stormy-tundra-18959-4ac50ee587d1.herokuapp.com' }
 
 
   # Ignore bad email addresses and do not raise email delivery errors.
