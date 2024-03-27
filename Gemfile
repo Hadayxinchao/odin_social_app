@@ -77,3 +77,5 @@ gem 'omniauth-rails_csrf_protection'
 gem 'figaro'
 
 gem "letter_opener", group: :development
+
+gem "aws-sdk-s3", require: false
