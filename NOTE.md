@@ -13,3 +13,8 @@
  * Error details: "LoadError (Could not open library 'vips.so.42': vips.so.42: cannot open shared object file: No such file or directory. Could not open library 'libvips.so.42': libvips.so.42: cannot open shared object file: No such file or directory. Searched in , /usr/lib, /usr/local/lib, /opt/local/lib):"
  * The error message indicates that the system is unable to find the libvips library, which is a dependency for some Ruby gems like image_processing or ruby-vips.
  * try: "sudo apt-get install libvips42"
+
+# DEPLOY APP IN HEROKU
+ * https://devcenter.heroku.com/articles/rediscloud
+ * https://pragmaticstudio.com/tutorials/using-active-storage-in-rails
+ * https://devcenter.heroku.com/articles/getting-started-with-rails7#create-a-welcome-page
