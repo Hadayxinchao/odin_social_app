@@ -16,7 +16,7 @@
   <div class="field" data-controller='avatar' >
     <%= f.label :avatar %><br />
     <%= f.file_field :avatar, data: { action: 'change->avatar#preview', 'avatar-target': 'input' } %>
-    <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } if @user.avatar.attached %>
+    <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } if @user.avatar.present? %>
   </div>
 
   <div class="field">
