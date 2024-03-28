@@ -20,7 +20,7 @@
       <%= f.label :avatar, class: 'avatar-label' %>
       <div class="field edit-profile-avatar" data-controller='avatar' >
         <%= f.file_field :avatar, class: 'avatar-field', data: { action: 'change->avatar#preview', 'avatar-target': 'input' }%>
-        <% if @user.persisted? && @user.avatar.attached? %>
+        <% if @user.avatar.attached? %>
           <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
         <% end %>
       </div>
