@@ -27,9 +27,11 @@
       <h3>Profile picture</h3>
       <div class='complete-profile-instructions'>If you would like to update your picture, you can do it now. You can also edit your profile picture later.</div>
 
-      <div class="field complete-profile-photo" data-controller='avatar' >
-        <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
-        <%= f.file_field :photo, class: 'avatar-field', data: { action: 'change->avatar#preview', 'avatar-target': 'input' }%><br>
+      <div class="field complete-profile-avatar" data-controller='avatar' >
+        <% if @user.avatar.attached? %>
+          <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
+        <% end %>
+        <%= f.file_field :avatar, class: 'avatar-field', data: { action: 'change->avatar#preview', 'avatar-target': 'input' }%><br>
       </div>
 
      <div class='complete-profile-submit'>

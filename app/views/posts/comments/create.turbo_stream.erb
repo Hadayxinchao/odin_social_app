@@ -4,7 +4,7 @@
 <% end %>
 <%= turbo_stream.update "post_#{@comment.post.id}_comments_counter" do %>
   <span class="material-symbols-outlined comment-symbol comment-symbol-active" data-action='click->comments#toggle keydown.enter->comments#toggle' data-comments-target='commentSymbol' tabindex='0'>
-    mode_comment
+    Comment
   </span>
   <span class='comments-counter-span'>
     <%= @comment.post.comments.size %>
