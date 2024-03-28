@@ -61,7 +61,7 @@
           </span>
         </div>
         <h2>Recent notifications</h2>
-        <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
+        <% recent_notifications.each do |n| %>
           <%= render '/notifications/recent_notification', n: n %>
         <% end %>
         <div class='all-notifications-link'>

@@ -14,4 +14,13 @@ module NotificationsHelper
       n14e.author
     end
   end
+
+  def recent_notifications
+    n = current_user.notifications.where('created_at > ?', current_user.notifications_viewed_at).size
+    if n > 5
+      current_user.notifications.where('created_at > ?', current_user.notifications_viewed_at).order(created_at: :desc)
+    else
+      current_user.notifications.where(hidden: false).order(created_at: :desc).first(5)
+    end
+  end
 end

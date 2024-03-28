@@ -1,6 +1,7 @@
 <div id=<%= "comment_#{comment.id}" %> class="comment">
   <div><%= comment.author.email %></div>
   <div><%= simple_format h comment.content %></div>
+  <div><%= comment.created_at.strftime('%d %b %Y - %H:%M') %></div>
   <div id=<%= "Comment_#{comment.id}_likes_counter"%>>
     Likes: <%= link_to comment.likes.size, comment_likes_path(comment), data: { turbo_frame: "_top"} %>
   </div>

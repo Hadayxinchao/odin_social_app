@@ -1,7 +1,10 @@
 <%= content_tag :div, id: "recent_notification_#{n.id}", class: 'notification' do %>
   <%= link_to n.path, class: 'notification-info' do %>
     <%= image_tag notification_triggerer(n).avatar.variant(:thumb), class: 'notification-photo' %>
-    <%= content_tag :p, n.content, class: 'notification-text' %>
+    <div class='notification-text-and-date'>
+      <%= content_tag :p, n.content, class: 'notification-text' %>
+      <%= content_tag :div, n.created_at.strftime('%d %b %Y - %H:%M'), class: 'notification-date' %>
+    </div>
   <% end %>
   <%= form_with url: update_notification_hidden_path(n), method: 'put', class: 'notification-hide-form' do |form| %>
     <%= form.submit '', class: 'notification-hide-button' %>
