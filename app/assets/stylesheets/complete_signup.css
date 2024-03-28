@@ -39,13 +39,13 @@
   padding: 8px 16px;
 }
 
-.complete-profile-photo {
+.complete-profile-avatar {
   display: flex;
   align-items: center;
   padding: 8px 16px;
 }
 
-.complete-profile #user_photo {
+.complete-profile #user_avatar {
   margin-left: 16px;
 }
 
@@ -80,7 +80,7 @@
   border: 1px solid #C6E000;
 }
 
-.complete-profile-photo img {
+.complete-profile-avatar img {
   border: 1px solid black;
 }
 
@@ -126,7 +126,7 @@
   border-radius: 5px;
 }
 
-.complete-profile .photo-field {
+.complete-profile .avatar-field {
   font-size: 16px;
 }
 

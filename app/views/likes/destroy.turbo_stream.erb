@@ -1,15 +1,21 @@
 <%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes" do %>
-  <%= form_with model: Like.new, url: likes_path do |f| %>
-    <%= f.hidden_field :likeable_type, value: "#{@like.likeable_type}" %>
-    <%= f.hidden_field :likeable_id, value: @like.likeable_id %>
-    <%= f.submit 'Like' %>
+  <%= form_with model: Like.new(), url:likes_path do |form| %>
+    <%= form.hidden_field :likeable_type, value: "#{@like.likeable_type}" %>
+    <%= form.hidden_field :likeable_id, value: @like.likeable_id %>
+    <label>
+      <%= form.submit '', class: 'post-like-submit' %>
+      <button class='like-button'>
+        <span class="material-symbols-outlined like-symbol">
+          Like
+        </span>
+      </button>   
+    </label>
   <% end %>
 <% end %>
-
 <%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes_counter" do %>
   <% if @like.likeable_type == 'Post' %>
-    Likes: <%= link_to @like.likeable.likes.size, post_likes_path(@like.likeable) %>
+    <%= link_to @like.likeable.likes.size, post_likes_path(@like.likeable), class:'likes-counter-link'  %>
   <% else %>
-    Likes: <%= link_to @like.likeable.likes.size, comment_likes_path(@like.likeable), data: { turbo_frame: "_top" }%>
+    <%= link_to @like.likeable.likes.size, comment_likes_path(@like.likeable), class:'likes-counter-link' , data: { turbo_frame: "_top" } %>
   <% end %>
 <% end %>

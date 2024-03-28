@@ -1,4 +1,5 @@
 <%= turbo_stream.prepend 'posts', @post %>
+<%= turbo_stream.remove 'error_explanation' %>
 <%= turbo_stream.replace 'post_form' do %>
   <%= render partial: 'post_form', locals: { post: Post.new } %>
 <% end %>

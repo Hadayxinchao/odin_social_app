@@ -1,59 +1,73 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class='edit-profile-container'>
+  <div class='edit-profile'>
+    <h2>Edit profile</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
-  </div>
+      <div class='name-and-last-name'>
+        <div class="field">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: 'stretch' %>
+        </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autocomplete: "family-name" %>
-  </div>
+        <div class="field">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, autocomplete: "family-name", class: 'stretch' %>
+        </div>
+      </div>
 
-  <div class="field" data-controller='avatar' >
-    <%= f.label :avatar %><br />
-    <%= f.file_field :avatar, data: { action: 'change->avatar#preview', 'avatar-target': 'input' } %>
-    <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } if @user.avatar.present? %>
-  </div>
+      <%= f.label :avatar, class: 'avatar-label' %>
+      <div class="field edit-profile-avatar" data-controller='avatar' >
+        <%= f.file_field :avatar, class: 'avatar-field', data: { action: 'change->avatar#preview', 'avatar-target': 'input' }%>
+        <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
+      <div class='email-and-passwords'>
+        <div class="field">
+          <%= f.label :email %>
+          <%= f.email_field :email, autocomplete: "email", class: 'stretch' %>
+        </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+        <div class="field">
+          <%= f.label :password %> 
+          <% if @minimum_password_length %>
+            <i>(<%= @minimum_password_length %> characters minimum, leave blank if you don't want to change it)</i>
+          <% else %>
+            <i>(leave blank if you don't want to change it)</i>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "new-password", class: 'stretch' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'stretch' %>
+        </div>
+
+        <div class="field">
+          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: 'stretch' %>
+        </div>
+      </div>
+
+      <div class='edit-profile-submit'>
+        <div class="actions">
+          <%= f.submit "Update", class: 'stretch' %>
+        </div>
+      </div>
     <% end %>
+
+    <div class="divider"></div>
+
+    <h3 class='edit-cancel-h2'>Cancel my account</h3>
+
+    <div class='edit-profile-instructions'>Clicking on this button will erase your account from our database.</div>
+    <div class='edit-cancel-div'>
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: 'edit-profile-cancel-button' %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>

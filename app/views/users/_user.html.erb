@@ -1,34 +1,33 @@
-<div>
-  <%= link_to image_tag(url_for(user.avatar.variant(:thumb))), user %>
-  <div>
-    <strong>Name: </strong><%= "#{user.first_name} #{user.last_name}" %> <br>
-    <strong>Email: </strong><%= user.email %>
+<div class='user'>
+  <div class='image-and-name'>
+    <%= link_to image_tag(url_for(user.avatar.variant(:thumb))), user, class: 'profile-image' %>
+    <%= link_to "#{user.first_name} #{user.last_name}", user, class: 'name-link' %>
   </div>
 
   <% if user == current_user %>
-    <%= link_to 'Edit profile', edit_user_registration_path %>
+    <%= link_to 'Edit profile', edit_user_registration_path, class: 'edit-profile-link' %>
   <% end %>
 
-  <div>
+  <div class='friendship-buttons'>
     <% if current_user.friendship(user) %>
       <% if current_user.friendship_confirmed?(user) %>
-        <%= link_to 'Delete Friendship', current_user.friendship(user), data: { turbo_method: :delete } %>
+        <%= link_to 'Delete friendship', current_user.friendship(user), data: { turbo_method: :delete }, class: 'delete-friendship-link friendship-links' %>
       <% else %>
         <% if current_user.friendship(user).requester == current_user %>
-          <%= button_tag 'Pending Approval', disabled: true %>
-          <%= link_to 'Cancel request', current_user.friendship(user), data: { turbo_method: :delete } %>
+          <%= button_tag 'Pending approval', class: 'add-friend-button', disabled: true %>
+          <%= link_to 'Cancel request', current_user.friendship(user), data: { turbo_method: :delete }, class: 'cancel-request-link friendship-links' %>
         <% else %>
-          <%= link_to 'Accept request', current_user.friendship(user), data: { turbo_method: :patch } %>
-          <%= link_to 'Reject request', current_user.friendship(user), data: { turbo_method: :delete } %>
+          <%= link_to 'Accept request', current_user.friendship(user), data: { turbo_method: :patch }, class: 'accept-request-link friendship-links' %>
+          <%= link_to 'Reject request', current_user.friendship(user), data: { turbo_method: :delete }, class: 'reject-request-link friendship-links' %>
         <% end %>
-      <% end%>
+      <% end %>
     <% else %>
       <% unless user == current_user %>
         <%= form_with url: friendships_path, method: 'post' do |form| %>
           <%= form.hidden_field :friend_id, value: user.id %>
-          <%= form.submit 'Add Friend' %>
+          <%= form.submit 'Add friend', class: 'add-friend-button' %>
         <% end %>
-      <% end %>
+      <% end%>
     <% end %>
   </div>
 </div>

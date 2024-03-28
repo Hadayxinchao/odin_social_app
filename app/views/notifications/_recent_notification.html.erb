@@ -1,6 +1,6 @@
 <%= content_tag :div, id: "recent_notification_#{n.id}", class: 'notification' do %>
   <%= link_to n.path, class: 'notification-info' do %>
-    <%= image_tag notification_triggerer(n).avatar.variant(:thumb), class: 'notification-photo' %>
+    <%= image_tag notification_triggerer(n).avatar.variant(:thumb), class: 'notification-avatar' %>
     <div class='notification-text-and-date'>
       <%= content_tag :p, n.content, class: 'notification-text' %>
       <%= content_tag :div, n.created_at.strftime('%d %b %Y - %H:%M'), class: 'notification-date' %>

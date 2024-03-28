@@ -1,29 +1,56 @@
-<div id=<%= "post_#{post.id}" %> class="post">
-  <div><%= post.author.email %></div>
-  <div><%= simple_format h post.content %></div>
-  <div id=<%= "Post_#{post.id}_likes_counter"%>>
-  <div><%= post.created_at.strftime('%d %b %Y - %H:%M') %></div>
-    Likes: <%= link_to post.likes.size, post_likes_path(post) %> 
-  </div>
-  <div id=<%= "post_#{post.id}_comment_counter" %> >Comments: <%= post.comments.size %></div>
-  <div id=<%= "Post_#{post.id}_likes" %>>
-    <% if Like.where(user_id: current_user.id, likeable_type: 'Post', likeable_id: post.id).exists? %>
-      <%= link_to 'Unlike', like_path(post.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
-    <% else %>
-      <%= form_with model: Like.new(), url:likes_path do |f| %>
-        <%= f.hidden_field :likeable_type, value: 'Post' %>
-        <%= f.hidden_field :likeable_id, value: post.id %>
-        <%= f.submit 'Like' %>
+<div id=<%= "post_#{post.id}" %> class='post' data-controller='comments' >
+  <div class='post-content-and-interactions'>
+    <div class='post-content'><%= simple_format h post.content %></div>
+    <div class='post-info-and-interactions'>
+      <%= render 'shared/resource_info', resource: post %>
+      <div class='post-interactions'>
+        <div id=<%= "Post_#{post.id}_likes" %>>
+          <% if Like.where(user_id: current_user.id, likeable_type: 'Post', likeable_id: post.id).exists? %>
+            <%= link_to like_path(post.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete }, class: 'post-unlike-link'  do %>
+              <span class="material-symbols-outlined like-symbol">
+                Like
+              </span>
+            <% end %>
+          <% else %>
+            <%= form_with model: Like.new(), url:likes_path do |form| %>
+              <%= form.hidden_field :likeable_type, value: 'Post' %>
+              <%= form.hidden_field :likeable_id, value: post.id %>
+              <label>
+                <%= form.submit '', class: 'post-like-submit' %>
+                <button class='like-button'>
+                  <span class="material-symbols-outlined like-symbol">
+                    Like
+                  </span>
+                </button>
+              </label>
+            <% end %>
+          <% end %>
+        </div>
+        <div id=<%= "Post_#{post.id}_likes_counter"%> class='likes-counter-div'>
+          <%= link_to post.likes.size, post_likes_path(post), class:'likes-counter-link' %>
+        </div>
+        <div id=<%= "post_#{post.id}_comments_counter" %>>
+          <span class="material-symbols-outlined comment-symbol" data-action='click->comments#toggle keydown.enter->comments#toggle' data-comments-target='commentSymbol' tabindex='0'>
+            Comment
+          </span>
+          <span class='comments-counter-span'>
+            <%= post.comments.size %>
+          </span>
+        </div>
+      </div>
+    </div>
+    <% if post.author == current_user %>
+      <%= link_to post_path(post.id), data: { turbo_method: 'delete' }, class: 'post-delete-link' do %>
+        <span class="material-symbols-outlined">
+          Delete
+        </span>     
       <% end %>
     <% end %>
   </div>
-  <% if post.author == current_user %>
-    <%= link_to 'Delete post', post_path(post.id), data: { turbo_method: 'delete' } %>
-  <% end %>
-  
-  <%= turbo_frame_tag id='comments', src: post_comments_path(post) %>
-
-  <div id=<%= "turbo_frame_tag_post_#{post.id}" %>>
-    <%= turbo_frame_tag id='new_comment', src: new_post_comment_path(post) %>
+  <div class='post-comments' data-comments-target='postComments'>
+    <div id=<%= "turbo_frame_tag_post_#{post.id}" %>>
+      <%= turbo_frame_tag id='new_comment', src: new_post_comment_path(post) %>
+    </div>
+    <%= turbo_frame_tag id='comments', src: post_comments_path(post) %>
   </div>
 </div>

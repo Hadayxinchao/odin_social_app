@@ -1,0 +1,11 @@
+<% if resource.class == Post %>
+  <div class='post-info'>
+<% else %>
+  <div class='comment-info'>
+<% end %>
+  <%= image_tag resource.author.avatar.variant(:thumb), class: "#{resource.class.to_s.downcase}-author-photo" %>
+  <%= content_tag :div, class: "#{resource.class.to_s.downcase}-name-and-date" do %>
+    <%= content_tag :div, "#{resource.author.first_name} #{resource.author.last_name}", class: "#{resource.class.to_s.downcase}-author-name" %>
+    <%= content_tag :div, resource.created_at.strftime('%d %b %Y - %H:%M'), class: "#{resource.class.to_s.downcase}-date" %>
+  <% end %>
+</div>

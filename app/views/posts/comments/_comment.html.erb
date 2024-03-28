@@ -1,23 +1,40 @@
-<div id=<%= "comment_#{comment.id}" %> class="comment">
-  <div><%= comment.author.email %></div>
-  <div><%= simple_format h comment.content %></div>
-  <div><%= comment.created_at.strftime('%d %b %Y - %H:%M') %></div>
-  <div id=<%= "Comment_#{comment.id}_likes_counter"%>>
-    Likes: <%= link_to comment.likes.size, comment_likes_path(comment), data: { turbo_frame: "_top"} %>
+<div id=<%= "comment_#{comment.id}" %> class='comment'>
+  <%= simple_format h comment.content %>
+  <div class='comment-info-and-interactions'>
+    <%= render 'shared/resource_info', resource: comment %>
+    <div class='comment-interactions'>
+      <div id=<%= "Comment_#{comment.id}_likes" %>>
+        <% if Like.where(user_id: current_user.id, likeable_type: 'Comment', likeable_id: comment.id).exists? %>
+          <%= link_to like_path(comment.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete }, class: 'comment-unlike-link' do %>
+            <span class="material-symbols-outlined like-symbol">
+              Like
+            </span>
+          <% end %>
+        <% else %>
+          <%= form_with model: Like.new(), url:likes_path do |form| %>
+            <%= form.hidden_field :likeable_type, value: 'Comment' %>
+            <%= form.hidden_field :likeable_id, value: comment.id %>
+            <label>
+              <%= form.submit '', class: 'comment-like-submit' %>
+              <button class='like-button'>
+                <span class="material-symbols-outlined like-symbol">
+                  Like
+                </span>
+              </button>
+            </label>
+          <% end %>
+        <% end %>
+      </div>
+      <div id=<%= "Comment_#{comment.id}_likes_counter" %> class='likes-counter-div'>
+        <%= link_to comment.likes.size, comment_likes_path(comment), class:'likes-counter-link' , data: { turbo_frame: "_top" } %>
+      </div>
+    </div>
   </div>
-  <div id=<%= "Comment_#{comment.id}_likes" %>>
-    <% if Like.where(user_id: current_user.id, likeable_type: 'Comment', likeable_id: comment.id).exists? %>
-      <%= link_to 'Unlike', like_path(comment.likes.find_by(user_id: current_user.id).id), data: { turbo_method: :delete } %>
-    <% else %>
-      <%= form_with model: Like.new(), url: likes_path do |f| %>
-        <%= f.hidden_field :likeable_type, value: 'Comment' %>
-        <%= f.hidden_field :likeable_id, value: comment.id %>
-        <%= f.submit 'Like' %>
-      <% end %>
-    <% end %>
-  </div>
-    
   <% if current_user == comment.author || current_user == comment.post.author %>
-    <%= link_to 'Delete Comment', post_comment_path(comment.post, comment), data: { turbo_method: :delete } %>
+    <%= link_to post_comment_path(comment.post, comment), data: { turbo_method: :delete }, class: 'comment-delete-link' do %>
+      <span class="material-symbols-outlined">
+        Delete
+      </span>
+    <% end %>
   <% end %>
 </div>

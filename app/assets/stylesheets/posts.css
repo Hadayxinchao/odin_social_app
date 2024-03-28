@@ -1,0 +1,277 @@
+/* GENERAL SETTINGS */
+.post-form-button:hover,
+.comment-form-button:hover {
+  cursor: pointer;
+}
+
+.like-symbol {
+  font-size: 17px;
+}
+
+.like-symbol:hover,
+.comment-symbol:hover {
+  cursor: pointer;
+}
+
+/* ELEMENT SIZE AND POSITIONING */
+.posts-container {
+  display: flex;
+  justify-content: center;
+}
+
+.posts-form-and-index {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+#new_post {
+  margin: 0 32px;
+  padding: 16px;
+}
+
+#post_form {
+  text-align: end;
+}
+
+.new-post-textbox {
+  width: 100%;
+  height: 64px;
+}
+
+#posts {
+  padding: 0 32px;
+}
+
+.post {
+  margin-bottom: 24px;
+  padding: 16px 0;
+}
+
+.post-info,
+.comment-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.comment {
+  margin: 16px 0;
+  padding: 0 16px 16px 16px;
+}
+
+.comment > p {
+  margin: 0;
+  padding: 16px 0;
+}
+
+.post-content-and-interactions {
+  padding: 16px;
+}
+
+.post-info-and-interactions {
+  padding: 8px;
+}
+
+.post-author-avatar {
+  width: 48px;
+}
+
+.comment-author-avatar {
+  width: 40px;
+}
+
+.post-name-and-date,
+.comment-name-and-date {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+}
+
+.comment-info-and-interactions,
+.post-info-and-interactions {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post-interactions,
+.post-interactions *,
+.comment-interactions,
+.comment-interactions * {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.post-like-submit,
+.comment-like-submit {
+  display: none;
+}
+
+.like-button {
+  margin: 0;
+  padding: 0;
+}
+
+.post-comments {
+  margin: 0 16px;
+  padding: 40px 24px 24px 24px;
+  display: none;
+}
+
+.comment-form {
+  text-align: end;
+}
+
+#comment_text {
+  width: 100%;
+}
+
+.post-form-button,
+.comment-form-button {
+  padding: 8px 16px;
+}
+
+.likes-counter-div {
+  width: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.comments-counter-span {
+  width: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.post-delete-link,
+.comment-delete-link {
+  display: flex;
+  justify-content: end;
+  padding-top: 16px;
+}
+
+/* COLORS, BACKGROUNDS AND BORDERS */
+#new_post {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.comment {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.post-content-and-interactions {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.post-info-and-interactions {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.post-comments {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.like-button {
+  background-color: transparent;
+  border: none;
+}
+
+.post-date,
+.comment-date {
+  color: rgb(100, 100, 100);
+}
+
+.post-form-button,
+.comment-form-button {
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: #C6E000;
+}
+
+.post-delete-link,
+.post-unlike-link,
+.comment-delete-link,
+.comment-unlike-link {
+  text-decoration: none;
+}
+
+.post-delete-link:link,
+.post-delete-link:visited,
+.post-delete-link:hover,
+.post-delete-link:active,
+.comment-delete-link:link,
+.comment-delete-link:visited,
+.comment-delete-link:hover,
+.comment-delete-link:active {
+  text-decoration: none;
+  color: #E05100;
+}
+
+.post-unlike-link:link,
+.post-unlike-link:visited,
+.post-unlike-link:hover,
+.post-unlike-link:active,
+.comment-unlike-link:link,
+.comment-unlike-link:visited,
+.comment-unlike-link:hover,
+.comment-unlike-link:active {
+  text-decoration: none;
+  color: #8200E0;
+}
+
+.likes-counter-link:link,
+.likes-counter-link:visited,
+.likes-counter-link:hover,
+.likes-counter-link:active {
+  color: black;
+}
+
+.comment-symbol-active {
+  color: #8200E0;
+}
+
+/* FONTS */
+.post-date,
+.comment-date {
+  font-size: 12px;
+}
+
+.post-form-button {
+  font-size: 16px;
+}
+
+.new-post-textbox {
+  font-size: 16px;
+}
+
+.likes-counter-link {
+  font-weight: bold;
+}
+
+.comments-counter-span {
+  font-weight: bold;
+}
+
+.post-author-name,
+.comment-author-name {
+  font-size: 16px;
+}
+
+.post-content {
+  font-size: 20px;
+}
+
+/* MAKE IT RESPONSIVE */
+@media (max-width: 449px) {
+  .post-info-and-interactions,
+  .comment-info-and-interactions {
+    justify-content: end;
+  }
+
+  .post-interactions,
+  .comment-interactions {
+    padding: 16px 0;
+  }
+}

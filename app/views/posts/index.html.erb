@@ -1,10 +1,11 @@
-<h1>Timeline</h1>
+<div class='posts-container'>
+  <div class='posts-form-and-index'>
+    <h2>New post</h2>
+    <%= turbo_frame_tag id='new_post', src:new_post_path %>
 
-<h2>New post</h2>
-<%= turbo_frame_tag id='new_post', src: new_post_path %>
-
-<h1>Recent posts</h1>
-
-<div id="posts">
-  <%= render @posts %>
+    <h1>Recent posts</h1>
+    <div id='posts'>
+      <%= render @posts %>
+    </div>
+  </div>
 </div>

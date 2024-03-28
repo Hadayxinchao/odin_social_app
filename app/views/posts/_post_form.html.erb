@@ -1,4 +1,5 @@
-<%= form_with model: post, id: 'post-form' do |form| %>
-  <%= form.text_area :content, placeholder: "Tell the world what you're thinking" %>
-  <%= form.submit 'Post' %>
+<%= form_with model: post, id: 'post_form' do |form| %>
+  <%= form.text_area :content, placeholder: "Tell the world what you're thinking", class: 'new-post-textbox' %>
+  <br>
+  <%= form.submit 'Post', class: 'post-form-button' %>
 <% end %>
