@@ -10,16 +10,22 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body data-controller='notifications'>
     <section class='header'>
       <%= link_to 'Odin Social', root_path, class: 'header-logo' %>
       <% if user_signed_in? %>
-        <ul class="header-link">
-          <li><%= link_to 'Posts', posts_path %></li>
-          <li><%= link_to 'My profile', current_user %></li>
-          <li><%= link_to 'Users', users_path %></li>
-          <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete' } %></li>
-        </ul>
+        <div class='nav-notification-and-links'>
+          <span class="material-symbols-outlined notification-symbol" tabindex='0' 
+                data-action='click->notifications#toggle keydown.enter->notifications#toggle'>
+                Notifications
+          </span>
+          <ul class='header-links'>
+            <li><%= link_to 'Posts', posts_path %></li>
+            <li><%= link_to 'My profile', current_user %></li>
+            <li><%= link_to 'Users', users_path %></li>
+            <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete' } %></li>
+          </ul>
+        </div>
       <% else %>
         <ul class="header-link">
           <li><%= link_to 'Sign in', posts_path, class: 'sign-in' %></li>
@@ -30,12 +36,18 @@
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, class: name unless msg.blank? %>
       <% end %>
-      <h2>Recent notifications</h2>
-      <div class="notifications">
+      <div class='notifications' data-notifications-target='notifications'>
+        <div class='notifications-title-close'>
+          <span class="material-symbols-outlined close-symbol" tabindex='0' 
+                  data-action='click->notifications#toggle keydown.enter->notifications#toggle'>
+                  x
+          </span>
+        </div>
+        <h2>Recent notifications</h2>
         <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
           <%= render '/notifications/recent_notification', n: n %>
         <% end %>
-        <div>
+        <div class='all-notifications-link'>
           <%= link_to 'All notifications', notifications_path %>
         </div>
       </div>

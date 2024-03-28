@@ -13,8 +13,8 @@ consumer.subscriptions.create("NotificationsChannel", {
     console.log(data)
     // Called when there's incoming data on the websocket for this channel
     const html = `${data['html']}`;
-    var notifications = document.querySelector('.notifications');
-    notifications.insertAdjacentHTML('afterbegin', html);
+    var notifications = document.querySelector('.notifications > h2');
+    notifications.insertAdjacentHTML('afterend', html);
     // var a1 = document.createElement('a');
     // a1.setAttribute('href', `/users/${data['user_id']}`);
     // a1.innerText = data['text'];
