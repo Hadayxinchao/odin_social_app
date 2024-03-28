@@ -1,7 +1,7 @@
 <%= content_tag :div, id: "recent_notification_#{n.id}", class: 'notification' do %>
   <%= link_to n.path, class: 'notification-info' do %>
-    <%= image_tag notification_triggerer(n).photo.variant(:thumb), class: 'notification-photo' %>
-    <%= content_tag :p, n.text, class: 'notification-text' %>
+    <%= image_tag notification_triggerer(n).avatar.variant(:thumb), class: 'notification-photo' %>
+    <%= content_tag :p, n.content, class: 'notification-text' %>
   <% end %>
   <%= form_with url: update_notification_hidden_path(n), method: 'put', class: 'notification-hide-form' do |form| %>
     <%= form.submit '', class: 'notification-hide-button' %>

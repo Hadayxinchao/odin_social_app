@@ -115,6 +115,19 @@ html {
   align-items: center;
 }
 
+.nav-notification-and-links button {
+  margin: 16px 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: unset;
+}
+
+.notifications-unread {
+  animation: 1s change-color infinite alternate ease-in;
+}
+
 .notifications {
   position: absolute;
   top: 64px;

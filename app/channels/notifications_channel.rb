@@ -7,4 +7,8 @@ class NotificationsChannel < ApplicationCable::Channel
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
   end
+
+  def receive(data)
+    current_user.update(notifications_viewed_at: Time.zone.now)
+  end
 end

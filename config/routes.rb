@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :friends, only: %i[create update destroy], controller: 'friendships', as: 'friendships'
   resources :notifications, only: %i[index destroy]
   put 'notifications/:id', to: 'notifications#update_hidden', as: 'update_notification_hidden'
+  post '/users/notifications-seen', to: 'users#notifications_seen'
   resources :likes, only: %i[create destroy]
 
   devise_for :users, path: 'accounts', controllers: { omniauth_callbacks: 'users/omniauth_callbacks',

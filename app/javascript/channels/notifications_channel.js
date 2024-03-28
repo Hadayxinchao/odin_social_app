@@ -1,6 +1,6 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create("NotificationsChannel", {
+const notificationsChannel = consumer.subscriptions.create("NotificationsChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -10,19 +10,21 @@ consumer.subscriptions.create("NotificationsChannel", {
   },
 
   received(data) {
-    console.log(data)
     // Called when there's incoming data on the websocket for this channel
     const html = `${data['html']}`;
-    var notifications = document.querySelector('.notifications > h2');
-    notifications.insertAdjacentHTML('afterend', html);
-    // var a1 = document.createElement('a');
-    // a1.setAttribute('href', `/users/${data['user_id']}`);
-    // a1.innerText = data['text'];
-    // var a2 = document.createElement('a');
-    // a2.setAttribute('href', `/notifications/${data['id']}`);
-    // a2.setAttribute('data-turbo-method', 'delete');
-    // var div = document.createElement('div');
-    // div.innerHTML = `${a1} - ${a2}`;
-    // notifications.prepend(div)
+    const h2 = document.querySelector('.notifications > h2');
+    h2.insertAdjacentHTML('afterend', html);
+    const notifications = document.querySelector('.notifications');
+    const symbol = document.querySelector('.notification-symbol');
+    if (notifications.classList.contains('show')) {
+      updateTimestamp();    
+    } else {
+      symbol.textContent = 'Notifications Unread';
+      symbol.classList.add('notifications-unread');
+    }
   },
 });
+
+function updateTimestamp() {
+  notificationsChannel.send({data: 'data'})
+}
