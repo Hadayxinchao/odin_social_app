@@ -106,5 +106,5 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  # config.hosts << Rails.application.credentials.dig(:ngrok, :host_name)
+  config.hosts << "stormy-tundra-18959-4ac50ee587d1.herokuapp.com"
 end
