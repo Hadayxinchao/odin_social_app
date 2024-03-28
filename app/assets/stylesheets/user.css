@@ -1,0 +1,82 @@
+/* GENERAL SETTINGS */
+
+
+/* ELEMENT SIZE AND POSITIONING */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.profile-user > .user {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-user .friendship-links,
+.profile-user form,
+.profile-user .edit-profile-link {
+  width: 200px;
+}
+
+.friends-section {
+  margin: 48px 0;
+}
+
+.friends-section h2 {
+  padding-left: 16px;
+}
+
+.friends-in-common,
+.other-friends,
+.my-friends {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.friends-in-common p,
+.other-friends p,
+.my-friends p {
+  margin: 0;
+  margin-bottom: 16px;
+  padding-left: 32px;
+}
+
+.add-friend-see-post {
+  padding-left: 24px;
+  margin-bottom: 32px;
+}
+
+/* COLORS, BACKGROUNDS AND BORDERS */
+
+
+/* FONTS */
+.friends-section h2 {
+  font-size: 20px;
+}
+
+
+/* MAKE IT RESPONSIVE */
+@media (max-width: 699px) {
+  .profile {
+    width: auto;
+  }
+}
+
+@media (max-width: 510px) {
+  .friends-in-common,
+  .other-friends,
+  .my-friends {
+    flex-direction: column;
+    align-items: center;
+  }
+}

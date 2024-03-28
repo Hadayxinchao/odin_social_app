@@ -1,4 +1,9 @@
 <%= turbo_stream.remove "comment_#{@comment.id}" %>
 <%= turbo_stream.update "post_#{@comment.post.id}_comments_counter" do %>
-  <%= "Comments: #{@comment.post.comments.size}" %>
+  <span class="material-symbols-outlined comment-symbol comment-symbol-active" data-action='click->comments#toggle keydown.enter->comments#toggle' data-comments-target='commentSymbol' tabindex='0'>
+    Comment
+  </span>
+  <span class='comments-counter-span'>
+    <%= @comment.post.comments.size %>
+  </span>
 <% end %>

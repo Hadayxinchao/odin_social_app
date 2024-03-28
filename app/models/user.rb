@@ -37,7 +37,7 @@ class User < ApplicationRecord
     avatar_url = URI.parse(data['image'])
     filename = File.basename(avatar_url.path)
     avatar_file = avatar_url.open
-    user.photo.attach(io: avatar_file, filename: filename)
+    user.avatar.attach(io: avatar_file, filename: filename)
     user
   end
 

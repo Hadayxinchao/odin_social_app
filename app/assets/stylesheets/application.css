@@ -1,3 +1,8 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 body {
   font-family: Roboto, sans-serif;
@@ -55,8 +60,13 @@ html {
 }
 
 .notification-symbol:hover,
-.close-symbol:hover {
+.close-symbol:hover,
+menu-symbol {
   cursor: pointer
+}
+
+.header-links li {
+  text-wrap: nowrap;
 }
 
 .main {
@@ -131,10 +141,14 @@ html {
 .notifications {
   position: absolute;
   top: 64px;
-  right: 240px;
+  right: 96px;
   width: 390px;
   padding: 0px 0px 24px 16px;
   visibility: hidden;
+}
+
+.menu-symbol {
+  display: none;
 }
 
 .notifications h2 {
@@ -169,7 +183,7 @@ html {
   text-align: end;
 }
 
-.notification-photo {
+.notification-avatar {
   width: 64px;
   height: 64px;
 }
@@ -191,6 +205,10 @@ html {
 
 .show {
   visibility: visible;
+}
+
+.display-block {
+  display: block;
 }
 
 .notifications-title-close {
@@ -432,10 +450,6 @@ html {
   padding: 104px 40px;
 }
 
-.post, .comment {
-  border: 1px solid black;
-}
-
 .error {
   color: #E05100;
 }
@@ -504,9 +518,6 @@ html {
  }
 
  /* COLORS, BACKGROUNDS AND BORDERS */
-.post, .comment {
-  border: 1px solid black;
- }
 
 .error {
   color: red;
@@ -536,3 +547,42 @@ a:active {
   text-decoration: none;
 }
 
+@media (max-width: 600px) {
+  .menu-symbol {
+    display: initial;
+    margin-left: 18px;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 56px;
+    left: 0px;
+    background-color: #8200E0;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 240px;
+    height: 100%;
+    padding-left: 56px;
+    padding-top: 18px;
+    visibility: hidden;
+  }
+
+  .nav-links li {
+    padding: 8px 0;
+  }
+
+  .notifications {
+    right: 8px;
+  }
+
+  .show {
+    visibility: visible;
+  }
+}
+
+@media (max-width: 419px) {
+  .notifications {
+    width: calc(100% - 16px);
+  }
+}

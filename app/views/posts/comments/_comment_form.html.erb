@@ -1,5 +1,5 @@
-<%= form_with model: comment, url: [comment.post, comment] do |f| %>
-  <%= f.text_area :content, placeholder: 'Comment here', id: 'comment_text' %>
-  <%= f.hidden_field :post_id, value: comment.post_id %>
-  <%= f.submit 'Comment' %>
+<%= form_with model: comment, url: [comment.post, comment], class: 'comment-form' do |form| %>
+  <%= form.text_area :content, placeholder: 'Comment here', id: 'comment_text' %>
+  <%= form.hidden_field :post_id, value: comment.post_id %>
+  <%= form.submit 'Comment', class: 'comment-form-button' %>
 <% end %>

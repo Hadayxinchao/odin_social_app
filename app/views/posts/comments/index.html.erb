@@ -1,5 +1,5 @@
 <%= turbo_frame_tag id='comments' do %>
-  <div id=<%= "comments_post_#{@post.id}"%>>
+  <div id=<%= "comments_post_#{@post.id}"%> class ='comments'>
     <%= render @comments %>
   </div>
 <% end %>

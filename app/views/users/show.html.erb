@@ -1,22 +1,30 @@
-<h1><%= @name %> profile</h1>
-<%= render @user %>
+<div class='profile-container'>
+  <div class='profile'>
+    <h1><%= @name %> profile</h1>
+    <div class='profile-user'>
+      <%= render @user %>
+    </div>
 
-<%= render 'friendships/friends_section', name: @name,
-                                          user: @user,
-                                          friends: @friends,
-                                          friends_in_common: @friends_in_common,
-                                          other_friends: @other_friends %>
+    <div class='friends-section'>
+      <%= render 'friendships/friends_section', :name => @name,
+                                                :user => @user,
+                                                :friends => @friends,
+                                                :friends_in_common => @friends_in_common,
+                                                :other_friends => @other_friends %>
+    </div>
 
-<% if current_user == @user %>
-  <h2>New post</h2>
-  <%= turbo_frame_tag id='new_post', src: new_post_path %>
-<% end %>
+    <% if current_user == @user %>
+      <h2>New post</h2>
+      <%= turbo_frame_tag id='new_post', src: new_post_path %>
+    <% end %>
 
-<h2><%= @name %> recent posts</h2>
-<% if current_user == @user || current_user.friendship_confirmed?(@user) %>
-  <div id="posts">
-    <%= render @posts %>
+    <h2><%= @name %> recent posts</h2>
+    <% if current_user == @user || current_user.friendship_confirmed?(@user) %>
+      <div id='posts'>
+        <%= render @posts %>
+      </div>
+    <% else %>
+      <div class='add-friend-see-post'>Add <%= @user.name %> <%= @user.last_name %> as a friend to see his/her posts.</div>
+    <% end %>
   </div>
-<% else %>
-  <div>Add <%= @user.email %> as a friend to see his/her posts.</div>
-<% end %>
+</div>

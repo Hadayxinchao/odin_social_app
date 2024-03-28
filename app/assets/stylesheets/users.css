@@ -1,0 +1,141 @@
+/* GENERAL SETTINGS */
+.add-friend-button:hover {
+  cursor: pointer;
+}
+
+/* ELEMENT SIZE AND POSITIONING */
+.users-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.users-title-and-list {
+  width: 640px;
+  padding: 16px;
+}
+
+.users {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.user {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  margin: 16px;
+  padding: 24px;
+}
+
+.friendship-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.friendship-buttons > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-and-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.profile-image {
+  max-width: 90px;
+  max-height: 90px;
+}
+
+.add-friend-button,
+.delete-friendship-link,
+.cancel-request-link,
+.edit-profile-link,
+.accept-request-link,
+.reject-request-link {
+  padding: 8px;
+  margin: 4px 0;
+}
+
+.friendship-links {
+  text-align: center;
+}
+
+.edit-profile-link {
+  text-align: center;
+}
+
+/* COLORS, BACKGROUNDS AND BORDERS */
+.user {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.add-friend-button,
+.accept-request-link {
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: #C6E000;
+}
+
+.delete-friendship-link {
+  border: 1px solid #E05100;
+  border-radius: 4px;
+}
+
+.cancel-request-link,
+.reject-request-link {
+  border: 1px solid #E05100;
+  border-radius: 4px;
+}
+
+.edit-profile-link {
+  border: 1px solid white;
+  border-radius: 4px;
+  background-color: #8200E0;
+}
+
+.friendship-links,
+.name-link,
+.edit-profile-link {
+  text-decoration: none;
+}
+
+.friendship-links:link,
+.friendship-links:visited,
+.friendship-links:hover,
+.friendship-links:active,
+.name-link:link,
+.name-link:visited,
+.name-link:hover,
+.name-link:active {
+  color: black;
+}
+
+.edit-profile-link:link,
+.edit-profile-link:visited,
+.edit-profile-link:hover,
+.edit-profile-link:active {
+  color: white;
+}
+
+/* FONTS */
+.name-link {
+  font-size: 20px;
+}
+
+.add-friend-button,
+.friendship-links {
+  font-size: 16px;
+}
+
+
+/* MAKE IT RESPONSIVE */
+@media (max-width: 709px) {
+  .users-title-and-list {
+    width: 375px;
+  }
+}

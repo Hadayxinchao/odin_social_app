@@ -1,10 +1,14 @@
 <%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes" do %>
-  <%= link_to 'Unlike', like_path(@like.id), data: { turbo_method: :delete } %>
+  <%= link_to like_path(@like.id), data: { turbo_method: :delete }, class: 'post-unlike-link' do %>
+    <span class="material-symbols-outlined like-symbol">
+      Unlike
+    </span> 
+  <% end %>
 <% end %>
 <%= turbo_stream.update "#{@like.likeable_type}_#{@like.likeable_id}_likes_counter" do %>
   <% if @like.likeable_type == 'Post' %>
-    Likes: <%= link_to @like.likeable.likes.size, post_likes_path(@like.likeable) %>
+    <%= link_to @like.likeable.likes.size, post_likes_path(@like.likeable), class:'likes-counter-link'  %>
   <% else %>
-    Likes: <%= link_to @like.likeable.likes.size, comment_likes_path(@like.likeable), data: { turbo_frame: "_top" }%>
+    <%= link_to @like.likeable.likes.size, comment_likes_path(@like.likeable), class:'likes-counter-link' , data: { turbo_frame: "_top" } %>
   <% end %>
 <% end %>
