@@ -74,5 +74,7 @@
 @media (max-width: 530px) {
   .sign-up-modal {
     border: none;
+    margin: 0 0;
+    padding: 0 32px;
   }
 }
