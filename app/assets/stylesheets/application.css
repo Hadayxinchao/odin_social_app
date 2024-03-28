@@ -448,7 +448,11 @@ html {
   background-color: #C6E000;
 }
 
-.alert, .notice {
+.success {
+  background-color: #A5DD9B;
+}
+
+.alert, .notice, .success {
   text-align: center;
   padding: 12px 0;
 }

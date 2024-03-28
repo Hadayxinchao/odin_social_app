@@ -1,0 +1,140 @@
+/* GENERAL SETTINGS */
+.complete-profile .actions > input,
+.complete-profile-cancel-button {
+  cursor: pointer;
+}
+
+/* ELEMENT SIZE AND POSITIONING */
+.complete-profile-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.complete-profile {
+  width: 435px;
+}
+
+.complete-profile .stretch {
+  width: 100%;
+  height: 64px;
+  padding: 1px 16px;
+}
+
+.complete-profile #user_name {
+  margin-bottom: 8px;
+}
+
+.complete-profile #user_last_name {
+  margin-bottom: 8px;
+}
+
+.complete-profile-submit .actions {
+  margin-top: 32px;
+  margin-left: calc(100% - 200px);
+  width: 200px;
+}
+
+.name-and-last-name {
+  padding: 8px 16px;
+}
+
+.complete-profile-photo {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.complete-profile #user_photo {
+  margin-left: 16px;
+}
+
+.complete-profile-instructions {
+  padding: 0 8px;
+}
+
+.complete-cancel-div {
+  margin-top: 16px;
+  margin-left: calc(100% - 200px);
+  margin-bottom: 32px;
+  width: 200px;
+}
+
+.complete-profile-cancel-button {
+  height: 64px;
+  padding: 1px 16px;
+}
+
+.divider {
+  margin: 32px 0;
+}
+
+/* COLORS, BACKGROUNDS AND BORDERS */
+.complete-profile .actions > input {
+  background-color: #C6E000;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.complete-profile .actions > input:hover {
+  border: 1px solid #C6E000;
+}
+
+.complete-profile-photo img {
+  border: 1px solid black;
+}
+
+.complete-profile-cancel-button {
+  border: 1px solid white;
+  background-color: #E05100;
+  border-radius: 5px;
+}
+
+.complete-profile-cancel-button:hover {
+  border: 1px solid #E05100;
+}
+
+.complete-profile-container .divider{
+  width: 100%;
+  float: left;
+  height: 1px;
+  background-color: #9b9b9b;
+}
+
+.field_with_errors #user_name,
+.field_with_errors #user_last_name {
+  border: 1px solid #E05100;
+}
+
+.field_with_errors #user_name:focus,
+.field_with_errors #user_last_name:focus {
+  border: 2px solid #E05100;
+  outline: #E05100;
+}
+
+/* FONTS */
+.complete-profile .field label,
+.complete-profile em,
+.complete-profile .actions > input,
+.complete-profile-cancel-button {
+  font-size: 18px;
+}
+
+.name-and-last-name input {
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.complete-profile .photo-field {
+  font-size: 16px;
+}
+
+/* MAKE IT RESPONSIVE */
+@media (max-width: 530px) {
+  .complete-profile {
+    width: 100%;
+    margin: 0;
+    padding: 0 32px;
+  }
+}

@@ -1,41 +1,58 @@
-<% if [nil, ''].include?(@first_name) || [nil, ''].include?(@last_name) %>
-  <div>Please complete your profile by filling out with your name and last name.</div>
-<% else %>
-  <h2>Comfirm profile information</h2>
-  <div>Please confirm your name and last name.</div>
-<% end %>
+<%= stylesheet_link_tag 'complete_signup', 'data-turbo-track': 'reload' %>
+<div class='complete-profile-container'>
+  <div class='complete-profile'>
+    <% if [nil, ''].include?(@name) || [nil, ''].include?(@last_name) %>
+      <h2>Complete your profile</h2>
+      <h3 class='complete-profile-instructions'>Name and last name</h3>
+      <div class='complete-profile-instructions'>Please complete your profile by filling out with your name and last name.</div>
+    <% else %>
+      <h2>Confirm profile information</h2>
+      <h3 class='complete-profile-instructions'>Name and last name</h3>
+      <div class='complete-profile-instructions'>Please confirm your name and last name.</div>
+    <% end %>
+    <%= form_for(@user, url: 'complete', html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: @user %>
 
-<%= form_for(@user, url: 'complete', html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: @user %>
+      <div class='name-and-last-name'>
+        <div class="field">
+          <%= f.label :first_name %><br />
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: 'stretch' %>
+        </div>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
-  </div>
+        <div class="field">
+          <%= f.label :last_name %><br />
+          <%= f.text_field :last_name, autocomplete: "family-name", class: 'stretch' %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autocomplete: "family-name" %>
-  </div>
+      <h3>Profile picture</h3>
+      <div class='complete-profile-instructions'>If you would like to update your picture, you can do it now. You can also edit your profile picture later.</div>
 
-  <div>If you would like to update your photo, please upload it now.</div>
+      <div class="field complete-profile-photo" data-controller='avatar' >
+        <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
+        <%= f.file_field :photo, class: 'avatar-field', data: { action: 'change->avatar#preview', 'avatar-target': 'input' }%><br>
+      </div>
 
-  <div class="field" data-controller='avatar'>
-    <%= f.file_field :avatar, data: { action: 'change->avatar#preview', 'avatar-target': 'input' } %><br>
-    <%= image_tag @user.avatar.variant(:thumb), data: { 'avatar-target': 'image' } %>
-  </div>
+     <div class='complete-profile-submit'>
+        <% if [nil, ''].include?(@name) || [nil, ''].include?(@last_name) %>
+          <div class="actions">
+            <%= f.submit "Update", class: 'stretch' %>
+          </div>
+        <% else %>
+          <div class="actions">
+            <%= f.submit "Confirm", class: 'stretch' %>
+          </div>
+        <% end %>
+     </div>
+    <% end %>
 
-  <% if [nil, ''].include?(@first_name) || [nil, ''].include?(@last_name) %>
-    <div class="actions">
-      <%= f.submit "Update" %>
+    <div class="divider"></div>
+
+    <h2 class='complete-cancel-h2'>Cancel my account</h2>
+
+    <div class='complete-profile-instructions'>Clicking on this button will erase your account from our database.</div>
+    <div class='complete-cancel-div'>
+      <%= button_to "Cancel my account", user_registration_path, class: 'complete-profile-cancel-button', data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %>
     </div>
-  <% else %>
-    <div class="actions">
-      <%= f.submit "Confirm" %>
-    </div>
-  <% end %>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", user_registration_path, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+  </div>
+</div>
