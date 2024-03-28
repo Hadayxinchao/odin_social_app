@@ -11,26 +11,41 @@
   </head>
 
   <body>
+    <section class='header'>
+      <%= link_to 'Odin Social', root_path, class: 'header-logo' %>
+      <% if user_signed_in? %>
+        <ul class="header-link">
+          <li><%= link_to 'Posts', posts_path %></li>
+          <li><%= link_to 'My profile', current_user %></li>
+          <li><%= link_to 'Users', users_path %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete' } %></li>
+        </ul>
+      <% else %>
+        <ul class="header-link">
+          <li><%= link_to 'Sign in', posts_path, class: 'sign-in' %></li>
+        </ul>
+      <% end %>
+    </section>
     <% if user_signed_in? %>
-      <ul>
-        <li><%= link_to 'Posts', posts_path %></li>
-        <li><%= link_to 'My profile', current_user %></li>
-        <li><%= link_to 'Users', users_path %></li>
-        <li><%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: 'delete' } %></li>
-      </ul>
       <h2>Recent notifications</h2>
-      <div class="notifications">
-        <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
-          <%= render '/notifications/recent_notification', n: n %>
-        <% end %>
-        <div>
-          <%= link_to 'All notifications', notifications_path %>
+        <div class="notifications">
+          <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
+            <%= render '/notifications/recent_notification', n: n %>
+          <% end %>
+          <div>
+            <%= link_to 'All notifications', notifications_path %>
+          </div>
         </div>
-      </div>
     <% end %>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, class: name %>
     <% end %>
-    <%= yield %>
+    <section class="main">
+      <%= yield %>
+    </section>
+    <section class="footer">
+      <p class="logo">Odin Social</p>
+      <div>&copy; 2024 <%= link_to 'Hadayxinchao', 'https://github.com/Hadayxinchao' %></div>
+    </section>
   </body>
 </html>

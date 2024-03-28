@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'posts#index'
+  root 'landings#home'
   resources :posts, except: %i[edit update] do
     resources :likes, only: %i[index], module: 'posts'
     resources :comments, except: %i[show edit update], module: 'posts'

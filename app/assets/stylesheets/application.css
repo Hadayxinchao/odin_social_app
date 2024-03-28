@@ -1,18 +1,255 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
-*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+body {
+  font-family: Roboto, sans-serif;
+  display: flex;
+  margin: 0;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.header {
+  height: 50px;
+  background-color: #1F2937;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 120px;
+  align-items: center;
+}
+
+.header-logo {
+  font-size: 24px;
+  font-weight: 900;
+  color: #F9FAF8;
+}
+
+.header-link {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  list-style-type: none;
+}
+
+.header-link a {
+  border: 2px solid #F9FAF8;
+  border-radius: 10px;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #E5E7Eb;
+  font-size: 18px;
+}
+
+.header-link a:hover {
+  background-color: #F9FAF8;
+  color: #1F2937;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+.main {
+  flex-grow: 1;
+}
+
+.sign-in {
+  padding: 8px 36px;
+}
+
+.footer {
+  display: flex;
+  height: 50px;
+  background-color: #1F2937;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: #E5E7Eb;
+  a {
+    color: #E5E7Eb;
+  }
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#section-1 {
+  background-color: #1F2937;
+  display: flex;
+  flex-grow: 0;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 120px;
+}
+
+.hero-1 {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex: 1;
+  .title {
+      font-size: 48px;
+      font-weight: bolder;
+      color: #F9FAF8;
+  }
+  .text {
+      font-size: 18px;
+      color: #F9FAF8;
+  }
+  button {
+    align-self: flex-start;
+    cursor: pointer;
+    padding: 8px 24px;
+    margin-top: 8px;
+    background-color: #008DDA;
+    border: 1px solid #3882F6;
+    font-size: 16px;
+    font-weight: bold;
+    color: #E5E7EB;
+    border-radius: 4px;
+  }
+  button:hover {
+    background-color: #41C9E2;
+  }
+}
+
+.hero-2 {
+  min-width: 60%;
+  height: 250px;
+  display: flex;
+  background-color: gray;
+  color: #E5E7EB;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+#section-2 {
+  background-color: #E5E7EB;
+  padding: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .text {
+      width: 70%;
+      margin: auto;
+      font-size: 36px;
+      font-style: italic;
+      font-weight: 300;
+      color: #1F2937;
+  }
+  .author {
+      padding-right: 18%;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 24px;
+      font-weight: 900;
+  }
+}
+
+#section-3 {
+  padding: 80px 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .model {
+    padding: 40px 80px;
+    display: flex;
+    background-color: #B0C5A4;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    border-radius: 8px;
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 40%;
+      .title {
+        font-size: 24px;
+        font-weight: 900;
+        color: #E5E7EB;
+      }
+      .text {
+        color: #E5E7EB;
+      }
+    }
+    button {
+      align-self: center;
+      padding: 8px 30px;
+      cursor: pointer;
+      background-color: #008DDA;
+      color: #E5E7EB;
+      font-size: 16px;
+      font-weight: bold;
+      border: 2px solid #E5E7EB;
+      border-radius: 8px;
+    }
+    button:hover {
+      background-color: #41C9E2;
+    }
+  }
+}
+
+.container-1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+}
+
+.container-1-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  max-width: 420px;
+  background-color: bisque;
+}
+
+.container-1-left:first-child {
+  margin-bottom: 8px;
+}
+
+.container-1-left:last-child {
+  margin-top: 32px;
+}
+
+.container-1-right {
+  height: 300px;
+  width: 670px;
+  background-color:blue;
+}
+
+.container-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 40px;
+}
+
+.container-2 > div {
+  margin-bottom: 16px;
+}
+
+.container-3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 104px 40px;
+}
+
 .post, .comment {
   border: 1px solid black;
 }
@@ -29,10 +266,74 @@
   color: green;
 }
 
-html {
-  scroll-behavior: smooth;
+.scroll-into {
+  border: 2px solid red;
+}
+
+ /* MAKE IT RESPONSIVE */
+ @media (max-width: 1599px) {
+  .home {
+
+  }
+ }
+
+ @media (max-width: 1280px) {
+  .home {
+
+  }
+ }
+
+ @media (max-width: 767px) {
+  .hero-right {
+    display: none;
+  }
+ }
+
+ @media (max-width: 360px) {
+  .home {
+
+  }
+ }
+
+ /* COLORS, BACKGROUNDS AND BORDERS */
+.post, .comment {
+  border: 1px solid black;
+ }
+
+.error {
+  color: red;
+}
+
+.field_with_errors {
+  border: 1px solid red;
 }
 
 .scroll-into {
   border: 2px solid red;
 }
+
+.nav {
+  background-color: #8200E0;
+  color: white;
+}
+
+.nav a {
+  color: white;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
