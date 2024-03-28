@@ -79,3 +79,5 @@ gem 'figaro'
 gem "letter_opener", group: :development
 
 gem "aws-sdk-s3", require: false
+
+gem 'pry'
