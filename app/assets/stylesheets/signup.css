@@ -1,0 +1,78 @@
+/* GENERAL SETTINGS */
+.sign-up-modal .actions > input {
+  cursor: pointer;
+}
+
+/* ELEMENT SIZE AND POSITIONING */
+.sign-up-window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .title{
+    font-size: 30px;
+    margin: 30px;
+    font-weight: bold;
+  }
+}
+
+.sign-up-modal {
+  width: 435px;
+  padding: 40px 32px 40px 32px;
+  margin: 0;
+}
+
+.sign-up-modal .stretch {
+  width: 100%;
+  height: 64px;
+  padding: 1px px;
+}
+
+.sign-up-modal #user_email {
+  margin-bottom: 40px;
+}
+
+.sign-up-modal #user_password {
+  margin-bottom: 8px;
+}
+
+.sign-up-modal .actions {
+  margin-top: 40px;
+}
+
+/* COLORS, BACKGROUNDS AND BORDERS */
+.sign-up-modal {
+  border: 1px solid black;
+}
+
+.sign-up-modal .actions > input {
+  background-color: #C6E000;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.sign-up-modal .actions > input:hover {
+  border: 1px solid #C6E000;
+}
+
+/* FONTS */
+.sign-up-modal .field label,
+.sign-up-modal em,
+.sign-up-modal .actions > input {
+  font-size: 18px;
+}
+
+.sign-up-modal .field > input {
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+/* MAKE IT RESPONSIVE */
+@media (max-width: 530px) {
+  .sign-up-modal {
+    border: none;
+  }
+}

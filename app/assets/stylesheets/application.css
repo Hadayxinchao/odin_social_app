@@ -272,25 +272,25 @@ html {
 
  /* MAKE IT RESPONSIVE */
  @media (max-width: 1599px) {
-  .home {
+  .sections {
 
   }
  }
 
  @media (max-width: 1280px) {
-  .home {
+  .sections {
 
   }
  }
 
  @media (max-width: 767px) {
-  .hero-right {
+  .hero-2 {
     display: none;
   }
  }
 
- @media (max-width: 360px) {
-  .home {
+ @media (max-width: 360px) {  
+  .sections {
 
   }
  }
@@ -310,15 +310,6 @@ html {
 
 .scroll-into {
   border: 2px solid red;
-}
-
-.nav {
-  background-color: #8200E0;
-  color: white;
-}
-
-.nav a {
-  color: white;
 }
 
 a:link {

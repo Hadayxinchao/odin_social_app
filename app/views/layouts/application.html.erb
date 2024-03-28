@@ -27,19 +27,20 @@
       <% end %>
     </section>
     <% if user_signed_in? %>
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: name unless msg.blank? %>
+      <% end %>
       <h2>Recent notifications</h2>
-        <div class="notifications">
-          <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
-            <%= render '/notifications/recent_notification', n: n %>
-          <% end %>
-          <div>
-            <%= link_to 'All notifications', notifications_path %>
-          </div>
+      <div class="notifications">
+        <% current_user.notifications.where(hidden: false).order(created_at: :desc).first(5).each do |n| %>
+          <%= render '/notifications/recent_notification', n: n %>
+        <% end %>
+        <div>
+          <%= link_to 'All notifications', notifications_path %>
         </div>
+      </div>
     <% end %>
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, class: name %>
-    <% end %>
+    
     <section class="main">
       <%= yield %>
     </section>

@@ -1,0 +1,145 @@
+/* GENERAL SETTINGS */
+.sign-in-modal > form:first-child > button:hover,
+.sign-in-modal > .new_user > .actions > input {
+  cursor: pointer;
+}
+
+/* ELEMENT SIZE AND POSITIONING */
+.sign-in-window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .title {
+    font-size: 24px;
+    margin: 20px;
+    font-weight: bold;
+  }
+}
+
+.sign-in-modal {
+  width: 435px;
+  padding: 24px 32px 24px 32px;
+}
+
+.stretch {
+  width: 100%;
+}
+
+.divider{
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.divider > .text {
+  padding: 0 8px;
+}
+
+.line {
+  flex-grow: 1;
+  height: 1px;
+}
+
+.sign-in-modal > :nth-child(2) {
+  text-align: center;
+}
+
+.sign-in-modal > form > .field:first-of-type > label,
+.sign-in-modal > form > .field:nth-of-type(2) > label {
+  visibility: hidden;
+  position: absolute;
+}
+
+.sign-in-modal > div {
+  margin: 24px 0;
+}
+
+.sign-in-modal > .button_to > button,
+.actions > input,
+.new_user :nth-child(2) > input,
+.new_user :nth-child(3) > input {
+  height: 64px;
+}
+
+.new_user :nth-child(2) > input,
+.new_user :nth-child(3) > input {
+  padding: 0;
+  text-indent: 15px;
+}
+
+.field:nth-child(2),
+.field:nth-child(3) {
+  margin: 16px 0;
+}
+
+#new_user > div.actions {
+  margin: 24px 0 8px 0;
+}
+
+.new_user {
+  margin: 0 0 24px 0;
+}
+
+/* COLORS, BACKGROUNDS AND BORDERS */
+.sign-in-modal {
+  border: 1px solid black;
+}
+
+.line {
+  background-color: black;
+}
+
+.sign-in-modal > a {
+  color: initial;
+}
+
+.sign-in-modal > .button_to > button,
+.actions > input {
+  background-color: #C6E000;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.sign-in-modal > .button_to > button:hover,
+.actions > input:hover {
+  border: 1px solid #C6E000;
+}
+
+/* FONTS */
+.sign-in-modal button,
+.sign-in-modal .actions > input,
+.sign-in-modal > div:first-of-type {
+  font-size: 18px;
+}
+
+.sign-in-modal > form > .field:first-of-type > input,
+.sign-in-modal > form > .field:nth-of-type(2) > input {
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#new_user > div:nth-child(4) > label {
+  font-size: 16px;
+}
+
+.sign-in-modal > a {
+  font-size: 18px;
+}
+
+.sign-in-modal > a:link,
+.sign-in-modal > a:visited,
+.sign-in-modal > a:hover,
+.sign-in-modal > a:active {
+  text-decoration: none;
+}
+
+/* MAKE IT RESPONSIVE */
+@media (max-width: 530px) {
+  .sign-in-modal {
+    border: none;
+  }
+}
