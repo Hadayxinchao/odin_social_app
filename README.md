@@ -1,4 +1,4 @@
-# TOP-Facebook
+# Odin Social
 
 This is the repo for the final project of the Rails course on 
 [The Odin Project](https://www.theodinproject.com/).
